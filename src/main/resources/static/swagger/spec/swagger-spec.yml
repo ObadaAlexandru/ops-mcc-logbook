@@ -249,7 +249,7 @@ definitions:
     properties:
       message:
         type: string
-      priority:
+      severity:
         type: string
         enum:
           - DEBUG
@@ -276,7 +276,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Note'
-      priority:
+      severity:
         type: string
         enum:
           - WARNING
