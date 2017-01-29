@@ -23,11 +23,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  */
 @Controller
 @RequestMapping("/logbook/alarms")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AlertController {
     private AlertService alertService;
     private AlertMapper alertMapper;
 
+    @Autowired
     public AlertController(AlertService alertService, AlertMapper alertMapper) {
         this.alertService = alertService;
         this.alertMapper = alertMapper;

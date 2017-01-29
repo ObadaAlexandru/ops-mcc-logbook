@@ -2,3 +2,8 @@ moveii:
   swagger:
     spec:
       name: swagger-spec.yml
+
+spring:
+  profiles:
+    # Default active profile (can be overridden by env vars or app params)
+    active: dev
