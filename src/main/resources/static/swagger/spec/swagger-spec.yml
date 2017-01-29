@@ -249,11 +249,70 @@ definitions:
     properties:
       message:
         type: string
+      priority:
+        type: string
+        enum:
+          - DEBUG
+          - INFO
+          - WARNING
+          - ERROR
+          - CRITICAL
+      subsystem:
+        type: string
+
 
   Alert:
     type: object
     properties:
       message:
+        type: string
+      state:
+        type: string
+        enum:
+          - NEW
+          - ACKNOWLEDGED
+          - RESOLVED
+      notes:
+        type: array
+        items:
+          $ref: '#/definitions/Note'
+      priority:
+        type: string
+        enum:
+          - WARNING
+          - CRITICAL
+      subsystem:
+        type: string
+      transitions:
+        type: array
+        items:
+          $ref: '#/definitions/Transition'
+
+
+  Note:
+    type: object
+    properties:
+      message:
+        type: string
+      author:
+        type: string
+
+  Transition:
+    type: object
+    properties:
+      from:
+        type: string
+        enum:
+          - NEW
+          - ACKNOWLEDGED
+          - RESOLVED
+      to:
+        type: string
+        enum:
+          - NEW
+          - ACKNOWLEDGED
+          - RESOLVED
+      author:
         type: string
 
   Error:
