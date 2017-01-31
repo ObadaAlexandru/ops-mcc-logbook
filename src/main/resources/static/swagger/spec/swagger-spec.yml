@@ -255,12 +255,79 @@ definitions:
     properties:
       message:
         type: string
+      severity:
+        type: string
+        enum:
+          - DEBUG
+          - INFO
+          - WARNING
+          - ERROR
+          - CRITICAL
+      subsystem:
+        type: string
+
 
   Alert:
     type: object
     properties:
       message:
         type: string
+      state:
+        type: string
+        enum:
+          - NEW
+          - ACKNOWLEDGED
+          - RESOLVED
+      notes:
+        type: array
+        items:
+          $ref: '#/definitions/Note'
+      severity:
+        type: string
+        enum:
+          - WARNING
+          - CRITICAL
+      subsystem:
+        type: string
+      transitions:
+        type: array
+        items:
+          $ref: '#/definitions/Transition'
+
+
+  Note:
+    type: object
+    properties:
+      message:
+        type: string
+      author:
+        type: integer
+        format: int64
+      timeStamp:
+        type: string
+        format: date-time
+
+  Transition:
+    type: object
+    properties:
+      from:
+        type: string
+        enum:
+          - NEW
+          - ACKNOWLEDGED
+          - RESOLVED
+      to:
+        type: string
+        enum:
+          - NEW
+          - ACKNOWLEDGED
+          - RESOLVED
+      author:
+        type: integer
+        format: int64
+      timeStamp:
+        type: string
+        format: date-time
 
   Error:
     type: object
