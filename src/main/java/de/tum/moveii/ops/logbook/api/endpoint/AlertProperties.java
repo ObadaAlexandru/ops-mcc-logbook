@@ -2,7 +2,7 @@ package de.tum.moveii.ops.logbook.api.endpoint;
 
 import com.mysema.query.types.Predicate;
 import de.tum.moveii.ops.logbook.alarm.model.AlertState;
-import de.tum.moveii.ops.logbook.alarm.model.Severity;
+import de.tum.moveii.ops.logbook.alarm.model.AlarmSeverity;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 public class AlertProperties {
     private String subsystemId;
-    private Severity severity;
+    private AlarmSeverity severity;
     private LocalDateTime since;
     private LocalDateTime until;
     private AlertState alertState;

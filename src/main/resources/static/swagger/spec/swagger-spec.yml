@@ -40,6 +40,10 @@ paths:
           description: Log message has been created
           schema:
             $ref: '#/definitions/LogMessage'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
         500:
           description: Service error
           schema:
@@ -94,6 +98,10 @@ paths:
             type: array
             items:
                 $ref: '#/definitions/LogMessage'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
         500:
           description: Service error
           schema:
@@ -118,6 +126,10 @@ paths:
           description: Log message
           schema:
             $ref: '#/definitions/LogMessage'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
         404:
           description: Not found
           schema:
@@ -148,6 +160,10 @@ paths:
           description: Alert has been created
           schema:
             $ref: '#/definitions/Alert'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
         500:
           description: Service error
           schema:
@@ -216,6 +232,10 @@ paths:
             type: array
             items:
                 $ref: '#/definitions/Alert'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
         500:
           description: Service error
           schema:
@@ -240,6 +260,10 @@ paths:
           description: Alert
           schema:
             $ref: '#/definitions/Alert'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
         404:
           description: Not found
           schema:
@@ -272,6 +296,9 @@ definitions:
     properties:
       message:
         type: string
+      owner:
+        type: integer
+        format: int64
       state:
         type: string
         enum:
@@ -303,7 +330,7 @@ definitions:
       author:
         type: integer
         format: int64
-      timeStamp:
+      createdOn:
         type: string
         format: date-time
 
@@ -325,7 +352,7 @@ definitions:
       author:
         type: integer
         format: int64
-      timeStamp:
+      createdOn:
         type: string
         format: date-time
 
