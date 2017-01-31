@@ -130,6 +130,7 @@ paths:
   /alerts:
     post:
       summary: Create alert
+      operationId: createAlert
       parameters:
         - name: alert
           in: body
@@ -199,6 +200,11 @@ paths:
           default: 50
           description: |
             The results will be provided in chunks. This parameters represents the chunk size
+        - name: pageIndex
+          in: query
+          type: integer
+          required: false
+          default: 0
       tags:
         - Alerts
       produces:
