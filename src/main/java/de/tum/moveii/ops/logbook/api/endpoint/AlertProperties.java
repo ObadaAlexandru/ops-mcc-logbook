@@ -1,8 +1,8 @@
 package de.tum.moveii.ops.logbook.api.endpoint;
 
 import com.mysema.query.types.Predicate;
-import de.tum.moveii.ops.logbook.alarm.model.AlertState;
 import de.tum.moveii.ops.logbook.alarm.model.AlarmSeverity;
+import de.tum.moveii.ops.logbook.alarm.model.AlertState;
 import lombok.Data;
 
 import java.time.LocalDateTime;
