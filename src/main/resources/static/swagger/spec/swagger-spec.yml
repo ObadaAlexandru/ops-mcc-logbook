@@ -295,7 +295,8 @@ definitions:
       message:
         type: string
       author:
-        type: string
+        type: integer
+        format: int64
       timeStamp:
         type: string
         format: date-time
@@ -316,7 +317,8 @@ definitions:
           - ACKNOWLEDGED
           - RESOLVED
       author:
-        type: string
+        type: integer
+        format: int64
       timeStamp:
         type: string
         format: date-time
