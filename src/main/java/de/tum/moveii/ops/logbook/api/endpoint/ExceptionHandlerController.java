@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED;
 
 /**
@@ -21,7 +22,6 @@ import static org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED;
 @Slf4j
 @RestControllerAdvice
 public class ExceptionHandlerController {
-
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorMessage handleBadRequest(MethodArgumentNotValidException methodArgumentException) {
@@ -38,5 +38,12 @@ public class ExceptionHandlerController {
     public ErrorMessage handleMethodNotAllowed(HttpServletRequest request, HttpRequestMethodNotSupportedException exception) {
         log.warn("Unexpected request: ", exception);
         return new ErrorMessage(String.format("Method <%s> not allowed at path <%s>", exception.getMethod(), request.getRequestURI()));
+    }
+
+    @ResponseStatus(INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public ErrorMessage handleServerSideError(Exception exception) {
+        log.error("Unexpected error: {}", exception);
+        return new ErrorMessage("server side error");
     }
 }
