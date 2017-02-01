@@ -23,6 +23,6 @@ public class BaseException extends RuntimeException {
 
     @Override
     public String toString() {
-        return String.format("(%s) - %s", errorCode.getCode(), message);
+        return String.format("[%s] - %s", errorCode.getCode(), message);
     }
 }

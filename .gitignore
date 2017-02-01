@@ -7,3 +7,7 @@ target
 
 # H2
 *.mb
+
+# Logs
+ logs
+ *.log
