@@ -5,21 +5,13 @@ CREATE SCHEMA logbook;
 COMMENT ON SCHEMA logbook
     IS 'Scheme for logbook';
 
--- Table: logbook.users
-/* CREATE TABLE logbook.users
-(
-    id integer NOT NULL,
-    name text,
-    CONSTRAINT users_pkey PRIMARY KEY (id)
-);*/
-
 -- Table: logbook.logmessage
 CREATE TABLE logbook.logmessages
 (
     id integer NOT NULL,
-    severity text,
-    subsystem text,
-    message text,
+    severity text NOT NULL,
+    subsystem text NOT NULL,
+    message text NOT NULL,
     CONSTRAINT logmessage_pkey PRIMARY KEY (id)
 );
 
@@ -27,12 +19,12 @@ CREATE TABLE logbook.logmessages
 CREATE TABLE logbook.alerts
 (
     id integer NOT NULL,
-    severity text,
-    subsystem text,
-    message text,
-    "state" text,
-    "createdOn" timestamp without time zone,    
-    "ownerId" integer, -- if the alert is created by user
+    severity text NOT NULL,
+    subsystem text NOT NULL,
+    message text NOT NULL,
+    "state" text NOT NULL,
+    "createdOn" timestamp without time zone NOT NULL,
+    "ownerId" integer, -- can be null when first created by system
     "createdBy" text, -- if the alert is created by system
     logmessageIds integer[], -- list of logmessage ids from which the alert came from
     CONSTRAINT alert_pkey PRIMARY KEY (id)
@@ -44,8 +36,8 @@ CREATE TABLE logbook.notes
     id integer NOT NULL,
     "ownerId" integer NOT NULL,
    	"alertId" integer NOT NULL,
-    message text,
-    "createdOn" timestamp without time zone,
+    message text NOT NULL,
+    "createdOn" timestamp without time zone NOT NULL,
     CONSTRAINT note_pkey PRIMARY KEY (id),
     CONSTRAINT alert_fk FOREIGN KEY ("alertId")
         REFERENCES logbook.alerts (id) MATCH SIMPLE
@@ -59,10 +51,25 @@ CREATE TABLE logbook.transitions
     id integer NOT NULL,
     "ownerId" integer NOT NULL,
    	"alertId" integer NOT NULL,
-    "startState" text,
-    "endState" text,
-    "createdOn" timestamp without time zone,
+    "startState" text NOT NULL,
+    "endState" text NOT NULL,
+    "createdOn" timestamp without time zone NOT NULL,
     CONSTRAINT transition_pkey PRIMARY KEY (id),
+    CONSTRAINT alert_fk FOREIGN KEY ("alertId")
+        REFERENCES logbook.alerts (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+-- Table: logbook.alertOwnerHistory
+CREATE TABLE logbook.alertOwnerHistory
+(
+    id integer NOT NULL,
+    "ownerId" integer NOT NULL,
+    "newOwnerId" integer NOT NULL,
+    "alertId" integer NOT NULL,
+    "createdOn" timestamp without time zone NOT NULL,
+    CONSTRAINT alertowners_pkey PRIMARY KEY (id),
     CONSTRAINT alert_fk FOREIGN KEY ("alertId")
         REFERENCES logbook.alerts (id) MATCH SIMPLE
         ON UPDATE NO ACTION
