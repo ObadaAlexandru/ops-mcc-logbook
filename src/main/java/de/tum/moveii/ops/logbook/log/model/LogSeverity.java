@@ -1,4 +1,4 @@
-package de.tum.moveii.ops.logbook.alarm.model;
+package de.tum.moveii.ops.logbook.log.model;
 
 /**
  * Created by Alexandru Obada on 31/01/17.
