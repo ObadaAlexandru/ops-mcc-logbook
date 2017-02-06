@@ -13,7 +13,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
-    ALERT_NOT_FOUND("ERR-001", "Alert not found");
+    ALERT_NOT_FOUND("ERR-001", "Alert not found"),
+    LOG_NOT_FOUND("ERR-002", "Log not found");
 
     private String code;
     private String defaultMessage;
