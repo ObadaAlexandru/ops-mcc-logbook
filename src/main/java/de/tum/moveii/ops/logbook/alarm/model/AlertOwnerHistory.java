@@ -9,22 +9,22 @@ import java.sql.Date;
  * Created by Constantin Costescu on 07-Feb-17.
  */
 @Entity
-@Table(name = "logbook.notes")
+@Table(name = "logbook.alertOwnerHistory")
 @Data
-public class Note {
+public class AlertOwnerHistory {
     @Id
-    @Column(name = "noteId", nullable = false)
+    @Column(name = "alertHistoryId", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long noteId;
+    private Long alertHistoryId;
 
-    @Column(name = "ownerId", nullable = false)
-    private Long ownerId;
+    @Column(name = "oldOwnerId", nullable = false)
+    private Long oldOwnerId;
+
+    @Column(name = "newOwnerId", nullable = false)
+    private Long newOwnerId;
 
     @Column(name = "alertId", nullable = false)
     private Long alertId;
-
-    @Column(name = "message", nullable = false)
-    private String message;
 
     @Column(name = "createdOn", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -36,8 +36,9 @@ public class Note {
 
     public void setAlert(Alert alert) {
         this.alert = alert;
-        if (!alert.getNotes().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
-            alert.getNotes().add(this);
+        if (!alert.getOwnerHistory().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
+            alert.getOwnerHistory().add(this);
         }
     }
+
 }

@@ -9,13 +9,13 @@ import java.sql.Date;
  * Created by Constantin Costescu on 07-Feb-17.
  */
 @Entity
-@Table(name = "logbook.notes")
+@Table(name = "logbook.transitions")
 @Data
-public class Note {
+public class Transition {
     @Id
-    @Column(name = "noteId", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long noteId;
+    private Long transitionId;
 
     @Column(name = "ownerId", nullable = false)
     private Long ownerId;
@@ -23,8 +23,11 @@ public class Note {
     @Column(name = "alertId", nullable = false)
     private Long alertId;
 
-    @Column(name = "message", nullable = false)
-    private String message;
+    @Column(name = "startState", nullable = false)
+    private String startState;
+
+    @Column(name = "endState", nullable = false)
+    private String endState;
 
     @Column(name = "createdOn", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -36,8 +39,8 @@ public class Note {
 
     public void setAlert(Alert alert) {
         this.alert = alert;
-        if (!alert.getNotes().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
-            alert.getNotes().add(this);
+        if (!alert.getTransitions().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
+            alert.getTransitions().add(this);
         }
     }
 }
