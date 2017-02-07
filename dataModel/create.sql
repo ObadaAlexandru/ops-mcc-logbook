@@ -12,6 +12,8 @@ CREATE TABLE logbook.logmessages
     severity text NOT NULL,
     subsystem text NOT NULL,
     message text NOT NULL,
+    "createdOn" timestamp without time zone NOT NULL,
+    "downloadedOn" timestamp without time zone NOT NULL,
     CONSTRAINT logmessage_pkey PRIMARY KEY (id)
 );
 
