@@ -37,7 +37,7 @@ CREATE TABLE logbook.notes
 (
     "noteId" integer NOT NULL,
     "ownerId" integer NOT NULL,
-   	"alertId" integer NOT NULL,
+    "alertId" integer NOT NULL,
     message text NOT NULL,
     "createdOn" timestamp without time zone NOT NULL,
     CONSTRAINT note_pkey PRIMARY KEY ("noteId"),
@@ -52,7 +52,7 @@ CREATE TABLE logbook.transitions
 (
     "transitionId" integer NOT NULL,
     "ownerId" integer NOT NULL,
-   	"alertId" integer NOT NULL,
+    "alertId" integer NOT NULL,
     "startState" text NOT NULL,
     "endState" text NOT NULL,
     "createdOn" timestamp without time zone NOT NULL,
