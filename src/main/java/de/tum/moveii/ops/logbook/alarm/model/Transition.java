@@ -24,9 +24,11 @@ public class Transition {
     private Long alertId;
 
     @Column(name = "startState", nullable = false)
+    @Convert(converter = AlertStateConverter.class)
     private String startState;
 
     @Column(name = "endState", nullable = false)
+    @Convert(converter = AlertStateConverter.class)
     private String endState;
 
     @Column(name = "createdOn", nullable = false)
