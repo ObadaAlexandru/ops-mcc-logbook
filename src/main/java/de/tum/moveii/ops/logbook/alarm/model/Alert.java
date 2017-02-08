@@ -31,7 +31,7 @@ public class Alert {
     private String message;
 
     @Column(name = "state", nullable = false)
-    @Convert(converter = AlertSeverityConverter.class)
+    @Convert(converter = AlertStateConverter.class)
     private String state;
 
     @Column(name = "createdOn", nullable = false)
