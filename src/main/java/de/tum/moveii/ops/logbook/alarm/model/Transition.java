@@ -36,11 +36,4 @@ public class Transition {
     @ManyToOne(optional = false)
     @JoinColumn(name = "alertId", referencedColumnName = "alertId")
     private Alert alert;
-
-    public void setAlert(Alert alert) {
-        this.alert = alert;
-        if (!alert.getTransitions().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
-            alert.getTransitions().add(this);
-        }
-    }
 }

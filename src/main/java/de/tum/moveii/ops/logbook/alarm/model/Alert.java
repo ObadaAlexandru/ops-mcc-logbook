@@ -1,9 +1,10 @@
 package de.tum.moveii.ops.logbook.alarm.model;
 
 import lombok.Data;
-import org.hibernate.mapping.Collection;
+import lombok.NonNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.List;
 
@@ -45,39 +46,24 @@ public class Alert {
 
     /* I used 'LAZY' fetch because we do not need the notes, transition or ownerHistory when we load alerts.
         We only need them when we want alertDetails, so using 'LAZY' is a better option  */
-    @OneToMany(mappedBy = "alert", targetEntity = Note.class,
-            fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "alert", fetch = FetchType.LAZY)
     private List<Note> notes;
 
-    @OneToMany(mappedBy = "alert", targetEntity = Transition.class,
-            fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "alert", fetch = FetchType.LAZY)
     private List<Transition> transitions;
 
-    @OneToMany(mappedBy = "alert", targetEntity = AlertOwnerHistory.class,
-            fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "alert", fetch = FetchType.LAZY)
     private List<AlertOwnerHistory> ownerHistory;
 
-    public void addNote(Note note) {
-        this.notes.add(note);
-
-        if (note.getAlert() != this) {
-            note.setAlert(this);
-        }
+    public void addNote(@NonNull Note note) {
+        notes.add(note);
     }
 
-    public void addTransition(Transition transition) {
-        this.transitions.add(transition);
-
-        if (transition.getAlert() != this) {
-            transition.setAlert(this);
-        }
+    public void addTransition(@NonNull Transition transition) {
+        transitions.add(transition);
     }
 
-    public void changeOwner(AlertOwnerHistory newOwner) {
-        this.ownerHistory.add(newOwner);
-
-        if (newOwner.getAlert() != this) {
-            newOwner.setAlert(this);
-        }
+    public void changeOwner(@NonNull AlertOwnerHistory newOwner) {
+        ownerHistory.add(newOwner);
     }
 }

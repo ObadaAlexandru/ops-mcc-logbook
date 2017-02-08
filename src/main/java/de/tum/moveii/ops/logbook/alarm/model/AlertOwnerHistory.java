@@ -33,12 +33,4 @@ public class AlertOwnerHistory {
     @ManyToOne(optional = false)
     @JoinColumn(name = "alertId", referencedColumnName = "alertId")
     private Alert alert;
-
-    public void setAlert(Alert alert) {
-        this.alert = alert;
-        if (!alert.getOwnerHistory().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
-            alert.getOwnerHistory().add(this);
-        }
-    }
-
 }
