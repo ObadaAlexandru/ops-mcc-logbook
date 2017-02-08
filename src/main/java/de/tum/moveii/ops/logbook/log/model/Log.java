@@ -1,9 +1,11 @@
 package de.tum.moveii.ops.logbook.log.model;
 
+import de.tum.moveii.ops.logbook.alarm.model.Alert;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by csoare on 2/3/17.
@@ -34,4 +36,7 @@ public class Log {
     @Column(name = "downloadedOn", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date downloadedOn;
+
+    @ManyToMany(mappedBy="logMessages")
+    private List<Alert> alerts;
 }

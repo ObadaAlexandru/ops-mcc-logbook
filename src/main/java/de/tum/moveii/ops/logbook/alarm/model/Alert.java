@@ -1,10 +1,10 @@
 package de.tum.moveii.ops.logbook.alarm.model;
 
+import de.tum.moveii.ops.logbook.log.model.Log;
 import lombok.Data;
 import lombok.NonNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.List;
 
@@ -43,8 +43,11 @@ public class Alert {
     @Column(name = "createdBy")
     private String createdBy;
 
-    @Column(name = "logmessageIds")
-    private Long[] logmessageIds;
+    @ManyToMany
+    @JoinTable(name = "logbook.alert_log",
+            joinColumns = @JoinColumn(name = "alertId", referencedColumnName = "alertId"),
+            inverseJoinColumns = @JoinColumn(name = "logId", referencedColumnName = "logId"))
+    private List<Log> logMessages;
 
     /* I used 'LAZY' fetch because we do not need the notes, transition or ownerHistory when we load alerts.
         We only need them when we want alertDetails, so using 'LAZY' is a better option  */

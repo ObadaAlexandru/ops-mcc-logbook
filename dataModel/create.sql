@@ -5,7 +5,7 @@ CREATE SCHEMA logbook;
 COMMENT ON SCHEMA logbook
     IS 'Scheme for logbook';
 
--- Table: logbook.logmessage
+-- Table: logbook.logmessages
 CREATE TABLE logbook.logmessages
 (
     "logId" integer NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE logbook.logmessages
     message text NOT NULL,
     "createdOn" timestamp without time zone NOT NULL,
     "downloadedOn" timestamp without time zone NOT NULL,
-    CONSTRAINT logmessage_pkey PRIMARY KEY ("logId")
+    CONSTRAINT log_pkey PRIMARY KEY ("logId")
 );
 
 -- Table: logbook.alert
@@ -28,8 +28,23 @@ CREATE TABLE logbook.alerts
     "createdOn" timestamp without time zone NOT NULL,
     "ownerId" integer, -- can be null when first created by system
     "createdBy" text, -- if the alert is created by system
-    logmessageIds integer[], -- list of logmessage ids from which the alert came from
     CONSTRAINT alert_pkey PRIMARY KEY ("alertId")
+);
+
+CREATE TABLE logbook.alert_log
+(
+    "alertId" integer NOT NULL,
+    "logId" integer NOT NULL,
+    CONSTRAINT alert_log_pkey PRIMARY KEY ("alertId", "logId"),
+    CONSTRAINT alert_fk FOREIGN KEY ("alertId")
+        REFERENCES logbook.alerts ("alertId") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT logId FOREIGN KEY ("logId")
+        REFERENCES logbook.logmessages ("logId") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+
 );
 
 -- Table: logbook.notes
@@ -64,7 +79,7 @@ CREATE TABLE logbook.transitions
 );
 
 -- Table: logbook.alertOwnerHistory
-CREATE TABLE logbook.alertOwnerHistory
+CREATE TABLE logbook."alertOwnerHistory"
 (
     "alertHistoryId" integer NOT NULL,
     "oldOwnerId" integer NOT NULL,
