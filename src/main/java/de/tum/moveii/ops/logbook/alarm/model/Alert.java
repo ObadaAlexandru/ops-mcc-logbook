@@ -21,7 +21,8 @@ public class Alert {
     private Long alertId;
 
     @Column(name = "severity", nullable = false)
-    private String severity;
+    @Convert(converter = AlertSeverityConverter.class)
+    private AlertSeverity severity;
 
     @Column(name = "subsystem", nullable = false)
     private String subsystem;
@@ -30,6 +31,7 @@ public class Alert {
     private String message;
 
     @Column(name = "state", nullable = false)
+    @Convert(converter = AlertSeverityConverter.class)
     private String state;
 
     @Column(name = "createdOn", nullable = false)

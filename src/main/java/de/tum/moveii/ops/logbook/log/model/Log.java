@@ -18,7 +18,8 @@ public class Log {
     private Long logId;
 
     @Column(name = "severity", nullable = false)
-    private String severity;
+    @Convert(converter = LogSeverityConverter.class)
+    private LogSeverity severity;
 
     @Column(name = "subsystem", nullable = false)
     private String subsystem;
