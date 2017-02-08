@@ -20,9 +20,6 @@ public class Transition {
     @Column(name = "ownerId", nullable = false)
     private Long ownerId;
 
-    @Column(name = "alertId", nullable = false)
-    private Long alertId;
-
     @Column(name = "startState", nullable = false)
     @Convert(converter = AlertStateConverter.class)
     private String startState;
@@ -35,7 +32,7 @@ public class Transition {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "alertId", referencedColumnName = "alertId")
+    @ManyToOne
+    @JoinColumn(name = "alertId")
     private Alert alert;
 }

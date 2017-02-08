@@ -20,9 +20,6 @@ public class Note {
     @Column(name = "ownerId", nullable = false)
     private Long ownerId;
 
-    @Column(name = "alertId", nullable = false)
-    private Long alertId;
-
     @Column(name = "message", nullable = false)
     private String message;
 
@@ -30,7 +27,7 @@ public class Note {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "alertId", referencedColumnName = "alertId")
+    @ManyToOne
+    @JoinColumn(name = "alertId")
     private Alert alert;
 }

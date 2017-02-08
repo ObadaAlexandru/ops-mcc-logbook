@@ -23,14 +23,11 @@ public class AlertOwnerHistory {
     @Column(name = "newOwnerId", nullable = false)
     private Long newOwnerId;
 
-    @Column(name = "alertId", nullable = false)
-    private Long alertId;
-
     @Column(name = "createdOn", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "alertId", referencedColumnName = "alertId")
+    @ManyToOne
+    @JoinColumn(name = "alertId")
     private Alert alert;
 }
