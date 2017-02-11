@@ -3,7 +3,7 @@ package de.tum.moveii.ops.logbook.alarm.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by Constantin Costescu on 07-Feb-17.
@@ -28,7 +28,7 @@ public class AlertOwnerHistory {
 
     @Column(name = "createdOn", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdOn;
+    private Timestamp createdOn;
 
     @ManyToOne
     @JoinColumn(name = "alertId")

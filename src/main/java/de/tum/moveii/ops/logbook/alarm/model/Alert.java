@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -38,7 +38,8 @@ public class Alert {
     private AlertState state;
 
     @Column(name = "createdOn", nullable = false)
-    private Date createdOn;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp createdOn;
 
     @Column(name = "ownerId")
     private Long ownerId;
