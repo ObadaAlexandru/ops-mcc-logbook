@@ -13,8 +13,11 @@ import java.sql.Date;
 @Data
 public class Note {
     @Id
-    @Column(name = "noteId", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "logbook.notes_noteId_seq",
+            sequenceName = "logbook.notes_noteId_seq",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "noteId", nullable = false, updatable = false)
     private Long noteId;
 
     @Column(name = "ownerId", nullable = false)

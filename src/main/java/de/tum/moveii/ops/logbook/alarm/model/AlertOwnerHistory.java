@@ -13,8 +13,11 @@ import java.sql.Date;
 @Data
 public class AlertOwnerHistory {
     @Id
-    @Column(name = "alertHistoryId", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "logbook.alertOwnerHistory_alertHistoryId_seq",
+            sequenceName = "logbook.alertOwnerHistory_alertHistoryId_seq",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "alertHistoryId", nullable = false, updatable = false)
     private Long alertHistoryId;
 
     @Column(name = "oldOwnerId", nullable = false)

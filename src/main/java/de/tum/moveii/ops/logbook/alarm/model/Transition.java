@@ -13,8 +13,11 @@ import java.sql.Date;
 @Data
 public class Transition {
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "logbook.transitions_transitionId_seq",
+            sequenceName = "logbook.transitions_transitionId_seq",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "transitionId", nullable = false, updatable = false)
     private Long transitionId;
 
     @Column(name = "ownerId", nullable = false)
@@ -22,11 +25,11 @@ public class Transition {
 
     @Column(name = "startState", nullable = false)
     @Convert(converter = AlertStateConverter.class)
-    private String startState;
+    private AlertState startState;
 
     @Column(name = "endState", nullable = false)
     @Convert(converter = AlertStateConverter.class)
-    private String endState;
+    private AlertState endState;
 
     @Column(name = "createdOn", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

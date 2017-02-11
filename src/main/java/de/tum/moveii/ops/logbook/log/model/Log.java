@@ -15,8 +15,11 @@ import java.util.List;
 @Data
 public class Log {
     @Id
-    @Column(name = "logId", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "logbook.logmessages_logId_seq",
+            sequenceName = "logbook.logmessages_logId_seq",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "logId", nullable = false, updatable = false)
     private Long logId;
 
     @Column(name = "severity", nullable = false)
@@ -36,7 +39,4 @@ public class Log {
     @Column(name = "downloadedOn", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date downloadedOn;
-
-    @ManyToMany(mappedBy="logMessages")
-    private List<Alert> alerts;
 }

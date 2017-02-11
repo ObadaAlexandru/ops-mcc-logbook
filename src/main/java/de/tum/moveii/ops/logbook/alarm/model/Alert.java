@@ -16,8 +16,11 @@ import java.util.List;
 @Data
 public class Alert {
     @Id
-    @Column(name = "alertId", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "logbook.alerts_alertId_seq",
+            sequenceName = "logbook.alerts_alertId_seq",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "alertId", nullable = false, updatable = false)
     private Long alertId;
 
     @Column(name = "severity", nullable = false)
@@ -32,7 +35,7 @@ public class Alert {
 
     @Column(name = "state", nullable = false)
     @Convert(converter = AlertStateConverter.class)
-    private String state;
+    private AlertState state;
 
     @Column(name = "createdOn", nullable = false)
     private Date createdOn;
@@ -49,8 +52,6 @@ public class Alert {
             inverseJoinColumns = @JoinColumn(name = "logId", referencedColumnName = "logId"))
     private List<Log> logMessages;
 
-    /* I used 'LAZY' fetch because we do not need the notes, transition or ownerHistory when we load alerts.
-        We only need them when we want alertDetails, so using 'LAZY' is a better option  */
     @OneToMany(mappedBy = "alert", fetch = FetchType.LAZY)
     private List<Note> notes;
 
