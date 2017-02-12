@@ -1,5 +1,6 @@
 package de.tum.moveii.ops.logbook.alarm.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "logbook.notes")
 @Data
+@Builder
 public class Note {
     @Id
     @SequenceGenerator(name = "logbook.notes_noteId_seq",

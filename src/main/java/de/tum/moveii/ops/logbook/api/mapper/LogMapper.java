@@ -26,7 +26,7 @@ public class LogMapper implements ResourceMapper<LogMessage, Log> {
 
     @Override
     public LogMessage toMessage(Log resource) {
-        LogMessage message = LogMessage.builder()
+        LogMessage logMessage = LogMessage.builder()
                 .severity(resource.getSeverity())
                 .subsystem(resource.getSubsystem())
                 .message(resource.getMessage())
@@ -34,6 +34,6 @@ public class LogMapper implements ResourceMapper<LogMessage, Log> {
                 .downloadedOn(resource.getDownloadedOn().toLocalDateTime())
                 .build();
 
-        return message;
+        return logMessage;
     }
 }

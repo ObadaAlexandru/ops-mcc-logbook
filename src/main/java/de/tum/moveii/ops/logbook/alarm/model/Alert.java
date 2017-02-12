@@ -1,6 +1,7 @@
 package de.tum.moveii.ops.logbook.alarm.model;
 
 import de.tum.moveii.ops.logbook.log.model.Log;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "logbook.alerts")
 @Data
+@Builder
 public class Alert {
     @Id
     @SequenceGenerator(name = "logbook.alerts_alertId_seq",
@@ -60,7 +62,7 @@ public class Alert {
     private List<Transition> transitions;
 
     @OneToMany(mappedBy = "alert", fetch = FetchType.LAZY)
-    private List<AlertOwnerHistory> ownerHistory;
+    private List<OwnerHistory> ownerHistory;
 
     public void addNote(@NonNull Note note) {
         notes.add(note);
@@ -70,7 +72,7 @@ public class Alert {
         transitions.add(transition);
     }
 
-    public void changeOwner(@NonNull AlertOwnerHistory newOwner) {
+    public void changeOwner(@NonNull OwnerHistory newOwner) {
         ownerHistory.add(newOwner);
     }
 }
