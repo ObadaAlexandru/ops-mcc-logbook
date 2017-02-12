@@ -1,6 +1,8 @@
 package de.tum.moveii.ops.logbook.log.model;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -11,6 +13,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "logbook.logmessages")
 @Data
+@Builder
 public class Log {
     @Id
     @SequenceGenerator(name = "logbook.logmessages_logId_seq",

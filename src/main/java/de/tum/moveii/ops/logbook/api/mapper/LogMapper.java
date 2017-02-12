@@ -13,24 +13,26 @@ import java.sql.Timestamp;
 public class LogMapper implements ResourceMapper<LogMessage, Log> {
     @Override
     public Log toResource(LogMessage message) {
-        Log log = new Log();
-        log.setSeverity(message.getSeverity());
-        log.setSubsystem(message.getSubsystem());
-        log.setMessage(message.getMessage());
-        log.setCreatedOn(Timestamp.valueOf(message.getCreatedOn()));
-        log.setDownloadedOn(Timestamp.valueOf(message.getDownloadedOn()));
+        Log log = Log.builder()
+                .severity(message.getSeverity())
+                .subsystem(message.getSubsystem())
+                .message(message.getMessage())
+                .createdOn(Timestamp.valueOf(message.getCreatedOn()))
+                .downloadedOn(Timestamp.valueOf(message.getDownloadedOn()))
+                .build();
 
         return log;
     }
 
     @Override
     public LogMessage toMessage(Log resource) {
-        LogMessage message = new LogMessage();
-        message.setSeverity(resource.getSeverity());
-        message.setSubsystem(resource.getSubsystem());
-        message.setMessage(resource.getMessage());
-        message.setCreatedOn(resource.getCreatedOn().toLocalDateTime());
-        message.setDownloadedOn(resource.getDownloadedOn().toLocalDateTime());
+        LogMessage message = LogMessage.builder()
+                .severity(resource.getSeverity())
+                .subsystem(resource.getSubsystem())
+                .message(resource.getMessage())
+                .createdOn(resource.getCreatedOn().toLocalDateTime())
+                .downloadedOn(resource.getDownloadedOn().toLocalDateTime())
+                .build();
 
         return message;
     }
