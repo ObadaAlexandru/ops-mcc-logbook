@@ -1,5 +1,6 @@
 package de.tum.moveii.ops.logbook.alarm.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,15 +10,16 @@ import java.sql.Timestamp;
  * Created by Constantin Costescu on 07-Feb-17.
  */
 @Entity
-@Table(name = "logbook.alertOwnerHistory")
+@Table(name = "logbook.ownerHistory")
 @Data
-public class AlertOwnerHistory {
+@Builder
+public class OwnerHistory {
     @Id
-    @SequenceGenerator(name = "logbook.alertOwnerHistory_alertHistoryId_seq",
-            sequenceName = "logbook.alertOwnerHistory_alertHistoryId_seq",
+    @SequenceGenerator(name = "logbook.ownerHistory_ownerHistoryId_seq",
+            sequenceName = "logbook.ownerHistory_ownerHistoryId_seq",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "alertHistoryId", nullable = false, updatable = false)
+    @Column(name = "ownerHistoryId", nullable = false, updatable = false)
     private Long alertHistoryId;
 
     @Column(name = "oldOwnerId", nullable = false)
@@ -25,6 +27,9 @@ public class AlertOwnerHistory {
 
     @Column(name = "newOwnerId", nullable = false)
     private Long newOwnerId;
+
+    @Column(name = "ownerId", nullable = false)
+    private Long ownerId;
 
     @Column(name = "createdOn", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

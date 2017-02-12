@@ -79,14 +79,15 @@ CREATE TABLE logbook.transitions
 );
 
 -- Table: logbook.alertOwnerHistory
-CREATE TABLE logbook."alertOwnerHistory"
+CREATE TABLE logbook."ownerHistory"
 (
-    "alertHistoryId" bigserial NOT NULL,
+    "ownerHistoryId" bigserial NOT NULL,
+    "ownerId" bigint NOT NULL,
     "oldOwnerId" bigint NOT NULL,
     "newOwnerId" bigint NOT NULL,
     "alertId" bigint NOT NULL,
     "createdOn" timestamp without time zone NOT NULL,
-    CONSTRAINT alertowners_pkey PRIMARY KEY ("alertHistoryId"),
+    CONSTRAINT alertowners_pkey PRIMARY KEY ("ownerHistoryId"),
     CONSTRAINT alert_fk FOREIGN KEY ("alertId")
         REFERENCES logbook.alerts ("alertId") MATCH SIMPLE
         ON UPDATE NO ACTION
