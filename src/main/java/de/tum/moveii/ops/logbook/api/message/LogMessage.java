@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @Builder
 public class LogMessage {
     @NotNull
+    private Long logId;
+    @NotNull
     private LogSeverity severity;
     @NotNull
     private String subsystem;

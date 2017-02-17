@@ -19,7 +19,8 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
     //TODO map Transition, Notes and OwnerHistory
     @Override
     public Alert toResource(AlertMessage message) {
-        Alert alert = Alert.builder()
+        return Alert.builder()
+                .alertId(message.getAlertId())
                 .severity(message.getSeverity())
                 .subsystem(message.getSubsystem())
                 .message(message.getMessage())
@@ -34,13 +35,12 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
                 .ownerHistory(message.getOwnerHistory().stream()
                         .map(ownerHistoryMapper::toResource).collect(Collectors.toList()))
                 .build();
-
-        return alert;
     }
 
     @Override
     public AlertMessage toMessage(Alert resource) {
-        AlertMessage alertMessage = AlertMessage.builder()
+        return AlertMessage.builder()
+                .alertId(resource.getAlertId())
                 .severity(resource.getSeverity())
                 .subsystem(resource.getSubsystem())
                 .message(resource.getMessage())
@@ -55,7 +55,5 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
                 .ownerHistory(resource.getOwnerHistory().stream()
                         .map(ownerHistoryMapper::toMessage).collect(Collectors.toList()))
                 .build();
-
-        return alertMessage;
     }
 }

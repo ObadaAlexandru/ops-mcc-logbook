@@ -14,25 +14,23 @@ import java.sql.Timestamp;
 public class TransitionMapper implements ResourceMapper<TransitionMessage, Transition> {
     @Override
     public Transition toResource(TransitionMessage message) {
-        Transition transition = Transition.builder()
+        return Transition.builder()
+                .transitionId(message.getTransitionId())
                 .startState(message.getStartState())
                 .endState(message.getEndState())
                 .ownerId(message.getOwner())
                 .createdOn(Timestamp.valueOf(message.getCreatedOn()))
                 .build();
-
-        return transition;
     }
 
     @Override
     public TransitionMessage toMessage(Transition resource) {
-        TransitionMessage transitionMessage = TransitionMessage.builder()
+        return TransitionMessage.builder()
+                .transitionId(resource.getTransitionId())
                 .startState(resource.getStartState())
                 .endState(resource.getEndState())
                 .owner(resource.getOwnerId())
                 .createdOn(resource.getCreatedOn().toLocalDateTime())
                 .build();
-
-        return transitionMessage;
     }
 }

@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @Builder
 public class OwnerHistoryMessage {
     @NotNull
+    private Long ownerHistoryId;
+    @NotNull
     private Long oldOwner;
     @NotNull
     private Long newOwner;

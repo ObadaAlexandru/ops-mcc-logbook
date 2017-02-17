@@ -13,23 +13,21 @@ import java.sql.Timestamp;
 public class NoteMapper implements ResourceMapper<NoteMessage, Note> {
     @Override
     public Note toResource(NoteMessage message) {
-        Note note = Note.builder()
+        return Note.builder()
+                .noteId(message.getNoteId())
                 .message(message.getMessage())
                 .ownerId(message.getOwner())
                 .createdOn(Timestamp.valueOf(message.getCreatedOn()))
                 .build();
-
-        return note;
     }
 
     @Override
     public NoteMessage toMessage(Note resource) {
-        NoteMessage noteMessage = NoteMessage.builder()
+        return NoteMessage.builder()
+                .noteId(resource.getNoteId())
                 .message(resource.getMessage())
                 .owner(resource.getOwnerId())
                 .createdOn(resource.getCreatedOn().toLocalDateTime())
                 .build();
-
-        return noteMessage;
     }
 }

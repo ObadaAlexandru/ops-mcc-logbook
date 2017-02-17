@@ -4,6 +4,7 @@ import de.tum.moveii.ops.logbook.alarm.model.AlertState;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -12,8 +13,14 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class TransitionMessage {
+    @NotNull
+    private Long transitionId;
+    @NotNull
     private AlertState startState;
+    @NotNull
     private AlertState endState;
+    @NotNull
     private Long owner;
+    @NotNull
     private LocalDateTime createdOn;
 }

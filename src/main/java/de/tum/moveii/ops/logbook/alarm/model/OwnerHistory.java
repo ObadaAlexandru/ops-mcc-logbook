@@ -20,7 +20,7 @@ public class OwnerHistory {
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ownerHistoryId", nullable = false, updatable = false)
-    private Long alertHistoryId;
+    private Long ownerHistoryId;
 
     @Column(name = "oldOwnerId", nullable = false)
     private Long oldOwnerId;

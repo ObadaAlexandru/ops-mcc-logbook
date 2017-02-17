@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @Builder
 public class NoteMessage {
     @NotNull
+    private Long noteId;
+    @NotNull
     private Long owner;
     @NotNull
     private String message;

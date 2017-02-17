@@ -19,6 +19,8 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 @Builder
 public class AlertMessage {
     @NotNull
+    private Long alertId;
+    @NotNull
     private AlertSeverity severity;
     @NotNull
     private String subsystem;
