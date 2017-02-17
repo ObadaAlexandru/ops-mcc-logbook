@@ -1,7 +1,7 @@
 package de.tum.moveii.ops.logbook.api.mapper;
 
-import de.tum.moveii.ops.logbook.log.model.Log;
 import de.tum.moveii.ops.logbook.api.message.LogMessage;
+import de.tum.moveii.ops.logbook.log.model.Log;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
