@@ -5,5 +5,6 @@ package de.tum.moveii.ops.logbook.api.mapper;
  */
 interface ResourceMapper<M, R> {
     R toResource(M message);
+
     M toMessage(R resource);
 }

@@ -1,7 +1,7 @@
 package de.tum.moveii.ops.logbook.api.mapper;
 
-import de.tum.moveii.ops.logbook.log.model.Log;
 import de.tum.moveii.ops.logbook.api.message.LogMessage;
+import de.tum.moveii.ops.logbook.log.model.Log;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -13,27 +13,25 @@ import java.sql.Timestamp;
 public class LogMapper implements ResourceMapper<LogMessage, Log> {
     @Override
     public Log toResource(LogMessage message) {
-        Log log = Log.builder()
+        return Log.builder()
+                .logId(message.getLogId())
                 .severity(message.getSeverity())
                 .subsystem(message.getSubsystem())
                 .message(message.getMessage())
                 .createdOn(Timestamp.valueOf(message.getCreatedOn()))
                 .downloadedOn(Timestamp.valueOf(message.getDownloadedOn()))
                 .build();
-
-        return log;
     }
 
     @Override
     public LogMessage toMessage(Log resource) {
-        LogMessage message = LogMessage.builder()
+        return LogMessage.builder()
+                .logId(resource.getLogId())
                 .severity(resource.getSeverity())
                 .subsystem(resource.getSubsystem())
                 .message(resource.getMessage())
                 .createdOn(resource.getCreatedOn().toLocalDateTime())
                 .downloadedOn(resource.getDownloadedOn().toLocalDateTime())
                 .build();
-
-        return message;
     }
 }
