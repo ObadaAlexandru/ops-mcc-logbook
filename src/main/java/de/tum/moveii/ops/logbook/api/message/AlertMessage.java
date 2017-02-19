@@ -39,6 +39,8 @@ public class AlertMessage {
     private String createdBy;
 
     @JsonInclude(NON_EMPTY)
+    private List<LogMessage> logMessages;
+    @JsonInclude(NON_EMPTY)
     private List<NoteMessage> notes;
     @JsonInclude(NON_EMPTY)
     private List<TransitionMessage> transitions;

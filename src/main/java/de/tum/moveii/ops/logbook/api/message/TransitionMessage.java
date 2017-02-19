@@ -16,11 +16,11 @@ public class TransitionMessage {
     @NotNull
     private Long transitionId;
     @NotNull
+    private Long owner;
+    @NotNull
     private AlertState startState;
     @NotNull
     private AlertState endState;
-    @NotNull
-    private Long owner;
     @NotNull
     private LocalDateTime createdOn;
 }

@@ -4,6 +4,7 @@ import de.tum.moveii.ops.logbook.alert.model.Alert;
 import de.tum.moveii.ops.logbook.api.message.AlertMessage;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.stream.Collectors;
 
@@ -12,13 +13,14 @@ import java.util.stream.Collectors;
  */
 @Component
 public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
+    private LogMapper logMapper = new LogMapper();
     private NoteMapper noteMapper = new NoteMapper();
     private TransitionMapper transitionMapper = new TransitionMapper();
     private OwnerHistoryMapper ownerHistoryMapper = new OwnerHistoryMapper();
 
     //TODO map Transition, Notes and OwnerHistory
     @Override
-    public Alert toResource(AlertMessage message) {
+    public Alert toResource(@NotNull AlertMessage message) {
         return Alert.builder()
                 .alertId(message.getAlertId())
                 .severity(message.getSeverity())
@@ -28,17 +30,19 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
                 .createdOn(Timestamp.valueOf(message.getCreatedOn()))
                 .ownerId(message.getOwner())
                 .createdBy(message.getCreatedBy())
-                .notes(message.getNotes().stream()
+                .logMessages(message.getLogMessages() == null ? null : message.getLogMessages().stream()
+                        .map(logMapper::toResource).collect(Collectors.toList()))
+                .notes(message.getNotes() == null ? null : message.getNotes().stream()
                         .map(noteMapper::toResource).collect(Collectors.toList()))
-                .transitions(message.getTransitions().stream()
+                .transitions(message.getTransitions() == null ? null : message.getTransitions().stream()
                         .map(transitionMapper::toResource).collect(Collectors.toList()))
-                .ownerHistory(message.getOwnerHistory().stream()
+                .ownerHistory(message.getOwnerHistory() == null ? null : message.getOwnerHistory().stream()
                         .map(ownerHistoryMapper::toResource).collect(Collectors.toList()))
                 .build();
     }
 
     @Override
-    public AlertMessage toMessage(Alert resource) {
+    public AlertMessage toMessage(@NotNull Alert resource) {
         return AlertMessage.builder()
                 .alertId(resource.getAlertId())
                 .severity(resource.getSeverity())
@@ -48,11 +52,15 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
                 .createdOn(resource.getCreatedOn().toLocalDateTime())
                 .owner(resource.getOwnerId())
                 .createdBy(resource.getCreatedBy())
-                .notes(resource.getNotes().stream()
+                .logMessages(resource.getLogMessages() == null ?
+                        null :
+                        resource.getLogMessages().stream()
+                                .map(logMapper::toMessage).collect(Collectors.toList()))
+                .notes(resource.getNotes() == null ? null : resource.getNotes().stream()
                         .map(noteMapper::toMessage).collect(Collectors.toList()))
-                .transitions(resource.getTransitions().stream()
+                .transitions(resource.getTransitions() == null ? null : resource.getTransitions().stream()
                         .map(transitionMapper::toMessage).collect(Collectors.toList()))
-                .ownerHistory(resource.getOwnerHistory().stream()
+                .ownerHistory(resource.getOwnerHistory() == null ? null : resource.getOwnerHistory().stream()
                         .map(ownerHistoryMapper::toMessage).collect(Collectors.toList()))
                 .build();
     }
