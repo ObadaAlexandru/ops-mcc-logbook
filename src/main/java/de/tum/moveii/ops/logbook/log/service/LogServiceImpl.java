@@ -2,12 +2,12 @@ package de.tum.moveii.ops.logbook.log.service;
 
 import com.mysema.query.types.Predicate;
 import de.tum.moveii.ops.logbook.log.model.Log;
-import org.springframework.stereotype.Component;
 import lombok.NonNull;
+import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Collections;
 
 /**
  * Created by csoare on 2/3/17.

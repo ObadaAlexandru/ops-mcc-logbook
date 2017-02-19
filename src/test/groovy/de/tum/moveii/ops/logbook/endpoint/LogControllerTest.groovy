@@ -2,14 +2,15 @@
  * Created by Cristian Soare on 2/4/17.
  */
 
+
 import com.mysema.query.types.Predicate
-import de.tum.moveii.ops.logbook.log.model.Log
-import de.tum.moveii.ops.logbook.log.service.LogService
 import de.tum.moveii.ops.logbook.api.endpoint.LogController
 import de.tum.moveii.ops.logbook.api.endpoint.LogProperties
 import de.tum.moveii.ops.logbook.api.mapper.LogMapper
 import de.tum.moveii.ops.logbook.api.message.LogMessage
 import de.tum.moveii.ops.logbook.error.LogNotFoundException
+import de.tum.moveii.ops.logbook.log.model.Log
+import de.tum.moveii.ops.logbook.log.service.LogService
 import spock.lang.Specification
 
 class LogControllerTest extends Specification {

@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * Created by Constantin Costescu on 07-Feb-17.
@@ -29,8 +29,7 @@ public class Note {
     private String message;
 
     @Column(name = "createdOn", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp createdOn;
+    private LocalDateTime createdOn;
 
     @ManyToOne
     @JoinColumn(name = "alertId")
