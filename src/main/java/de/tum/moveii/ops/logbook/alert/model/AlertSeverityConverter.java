@@ -1,4 +1,4 @@
-package de.tum.moveii.ops.logbook.alarm.model;
+package de.tum.moveii.ops.logbook.alert.model;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

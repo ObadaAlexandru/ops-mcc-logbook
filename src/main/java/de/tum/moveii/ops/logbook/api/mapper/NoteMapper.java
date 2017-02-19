@@ -1,6 +1,6 @@
 package de.tum.moveii.ops.logbook.api.mapper;
 
-import de.tum.moveii.ops.logbook.alarm.model.Note;
+import de.tum.moveii.ops.logbook.alert.model.Note;
 import de.tum.moveii.ops.logbook.api.message.NoteMessage;
 import org.springframework.stereotype.Component;
 

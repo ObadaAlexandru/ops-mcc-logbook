@@ -1,7 +1,7 @@
-package de.tum.moveii.ops.logbook.alarm.service;
+package de.tum.moveii.ops.logbook.alert.service;
 
 import com.mysema.query.types.Predicate;
-import de.tum.moveii.ops.logbook.alarm.model.Alert;
+import de.tum.moveii.ops.logbook.alert.model.Alert;
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
 

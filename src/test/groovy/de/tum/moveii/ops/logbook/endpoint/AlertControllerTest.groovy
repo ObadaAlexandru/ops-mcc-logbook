@@ -1,8 +1,8 @@
 package de.tum.moveii.ops.logbook.endpoint
 
 import com.mysema.query.types.Predicate
-import de.tum.moveii.ops.logbook.alarm.model.Alert
-import de.tum.moveii.ops.logbook.alarm.service.AlertService
+import de.tum.moveii.ops.logbook.alert.model.Alert
+import de.tum.moveii.ops.logbook.alert.service.AlertService
 import de.tum.moveii.ops.logbook.api.endpoint.AlertController
 import de.tum.moveii.ops.logbook.api.endpoint.AlertProperties
 import de.tum.moveii.ops.logbook.api.mapper.AlertMapper
@@ -13,14 +13,14 @@ import spock.lang.Specification
 /**
  * Created by Alexandru Obada on 29/01/17.
  */
-class AlarmControllerTest extends Specification {
+class AlertControllerTest extends Specification {
 
     def alertService = Mock(AlertService)
     def alertMapper = Mock(AlertMapper)
 
     def alertController = new AlertController(alertService, alertMapper)
 
-    def 'Create alarm'() {
+    def 'Create alert'() {
         given:
         def alertMessage = new AlertMessage()
         when:

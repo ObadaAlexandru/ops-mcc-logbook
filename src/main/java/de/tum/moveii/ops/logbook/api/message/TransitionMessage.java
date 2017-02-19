@@ -1,6 +1,6 @@
 package de.tum.moveii.ops.logbook.api.message;
 
-import de.tum.moveii.ops.logbook.alarm.model.AlertState;
+import de.tum.moveii.ops.logbook.alert.model.AlertState;
 import lombok.Builder;
 import lombok.Data;
 
