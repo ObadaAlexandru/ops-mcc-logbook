@@ -4,6 +4,7 @@ import de.tum.moveii.ops.logbook.api.message.LogMessage;
 import de.tum.moveii.ops.logbook.log.model.Log;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 /**
@@ -12,7 +13,7 @@ import java.sql.Timestamp;
 @Component
 public class LogMapper implements ResourceMapper<LogMessage, Log> {
     @Override
-    public Log toResource(LogMessage message) {
+    public Log toResource(@NotNull LogMessage message) {
         return Log.builder()
                 .logId(message.getLogId())
                 .severity(message.getSeverity())
@@ -24,7 +25,7 @@ public class LogMapper implements ResourceMapper<LogMessage, Log> {
     }
 
     @Override
-    public LogMessage toMessage(Log resource) {
+    public LogMessage toMessage(@NotNull Log resource) {
         return LogMessage.builder()
                 .logId(resource.getLogId())
                 .severity(resource.getSeverity())

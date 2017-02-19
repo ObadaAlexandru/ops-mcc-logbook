@@ -4,6 +4,7 @@ import de.tum.moveii.ops.logbook.alert.model.Transition;
 import de.tum.moveii.ops.logbook.api.message.TransitionMessage;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 
@@ -13,7 +14,7 @@ import java.sql.Timestamp;
 @Component
 public class TransitionMapper implements ResourceMapper<TransitionMessage, Transition> {
     @Override
-    public Transition toResource(TransitionMessage message) {
+    public Transition toResource(@NotNull TransitionMessage message) {
         return Transition.builder()
                 .transitionId(message.getTransitionId())
                 .startState(message.getStartState())
@@ -24,7 +25,7 @@ public class TransitionMapper implements ResourceMapper<TransitionMessage, Trans
     }
 
     @Override
-    public TransitionMessage toMessage(Transition resource) {
+    public TransitionMessage toMessage(@NotNull Transition resource) {
         return TransitionMessage.builder()
                 .transitionId(resource.getTransitionId())
                 .startState(resource.getStartState())

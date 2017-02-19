@@ -52,10 +52,8 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
                 .createdOn(resource.getCreatedOn().toLocalDateTime())
                 .owner(resource.getOwnerId())
                 .createdBy(resource.getCreatedBy())
-                .logMessages(resource.getLogMessages() == null ?
-                        null :
-                        resource.getLogMessages().stream()
-                                .map(logMapper::toMessage).collect(Collectors.toList()))
+                .logMessages(resource.getLogMessages() == null ? null : resource.getLogMessages().stream()
+                        .map(logMapper::toMessage).collect(Collectors.toList()))
                 .notes(resource.getNotes() == null ? null : resource.getNotes().stream()
                         .map(noteMapper::toMessage).collect(Collectors.toList()))
                 .transitions(resource.getTransitions() == null ? null : resource.getTransitions().stream()

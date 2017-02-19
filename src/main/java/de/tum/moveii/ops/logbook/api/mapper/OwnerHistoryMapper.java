@@ -4,6 +4,7 @@ import de.tum.moveii.ops.logbook.alert.model.OwnerHistory;
 import de.tum.moveii.ops.logbook.api.message.OwnerHistoryMessage;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 /**
@@ -12,7 +13,7 @@ import java.sql.Timestamp;
 @Component
 public class OwnerHistoryMapper implements ResourceMapper<OwnerHistoryMessage, OwnerHistory> {
     @Override
-    public OwnerHistory toResource(OwnerHistoryMessage message) {
+    public OwnerHistory toResource(@NotNull OwnerHistoryMessage message) {
         return OwnerHistory.builder()
                 .ownerHistoryId(message.getOwnerHistoryId())
                 .ownerId(message.getOwner())
@@ -23,7 +24,7 @@ public class OwnerHistoryMapper implements ResourceMapper<OwnerHistoryMessage, O
     }
 
     @Override
-    public OwnerHistoryMessage toMessage(OwnerHistory resource) {
+    public OwnerHistoryMessage toMessage(@NotNull OwnerHistory resource) {
         return OwnerHistoryMessage.builder()
                 .ownerHistoryId(resource.getOwnerHistoryId())
                 .owner(resource.getOwnerId())
