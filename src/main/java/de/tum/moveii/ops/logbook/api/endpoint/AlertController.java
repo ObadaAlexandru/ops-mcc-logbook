@@ -1,7 +1,7 @@
 package de.tum.moveii.ops.logbook.api.endpoint;
 
-import de.tum.moveii.ops.logbook.alarm.model.Alert;
-import de.tum.moveii.ops.logbook.alarm.service.AlertService;
+import de.tum.moveii.ops.logbook.alert.model.Alert;
+import de.tum.moveii.ops.logbook.alert.service.AlertService;
 import de.tum.moveii.ops.logbook.api.mapper.AlertMapper;
 import de.tum.moveii.ops.logbook.api.message.AlertMessage;
 import de.tum.moveii.ops.logbook.api.message.ErrorMessage;

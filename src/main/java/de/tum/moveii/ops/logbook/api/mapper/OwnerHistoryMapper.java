@@ -1,6 +1,6 @@
 package de.tum.moveii.ops.logbook.api.mapper;
 
-import de.tum.moveii.ops.logbook.alarm.model.OwnerHistory;
+import de.tum.moveii.ops.logbook.alert.model.OwnerHistory;
 import de.tum.moveii.ops.logbook.api.message.OwnerHistoryMessage;
 import org.springframework.stereotype.Component;
 

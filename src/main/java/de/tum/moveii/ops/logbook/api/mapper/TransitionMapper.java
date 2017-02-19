@@ -1,6 +1,6 @@
 package de.tum.moveii.ops.logbook.api.mapper;
 
-import de.tum.moveii.ops.logbook.alarm.model.Transition;
+import de.tum.moveii.ops.logbook.alert.model.Transition;
 import de.tum.moveii.ops.logbook.api.message.TransitionMessage;
 import org.springframework.stereotype.Component;
 

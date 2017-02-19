@@ -1,10 +1,12 @@
 package de.tum.moveii.ops.logbook.api.message;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import de.tum.moveii.ops.logbook.alarm.model.AlertSeverity;
-import de.tum.moveii.ops.logbook.alarm.model.AlertState;
+import de.tum.moveii.ops.logbook.alert.model.AlertSeverity;
+import de.tum.moveii.ops.logbook.alert.model.AlertState;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -16,6 +18,8 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
  * Created by Alexandru Obada on 29/01/17.
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class AlertMessage {
     @NotNull

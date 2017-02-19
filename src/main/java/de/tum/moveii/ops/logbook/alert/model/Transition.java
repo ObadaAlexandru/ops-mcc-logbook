@@ -1,4 +1,4 @@
-package de.tum.moveii.ops.logbook.alarm.model;
+package de.tum.moveii.ops.logbook.alert.model;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,8 +1,10 @@
-package de.tum.moveii.ops.logbook.alarm.model;
+package de.tum.moveii.ops.logbook.alert.model;
 
 import de.tum.moveii.ops.logbook.log.model.Log;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
@@ -14,6 +16,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "logbook.alerts")
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Builder
 public class Alert {
