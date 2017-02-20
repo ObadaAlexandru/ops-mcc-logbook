@@ -8,6 +8,7 @@ import de.tum.moveii.ops.logbook.log.model.Log;
 import de.tum.moveii.ops.logbook.log.service.LogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -51,7 +52,7 @@ public class LogController {
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
     public List<LogMessage> getLogs(LogProperties logProperties) {
-        List<Log> logs = logService.getLogs(logProperties.buildPredicate());
+        List<Log> logs = logService.getLogs(logProperties.buildPredicate(), new PageRequest(logProperties.getPageIndex(), logProperties.getPageSize()));
         return logs.stream()
                 .map(logMapper::toMessage)
                 .collect(Collectors.toList());

@@ -3,7 +3,7 @@
  */
 
 
-import com.mysema.query.types.Predicate
+import com.querydsl.core.types.Predicate
 import de.tum.moveii.ops.logbook.api.endpoint.LogController
 import de.tum.moveii.ops.logbook.api.endpoint.LogProperties
 import de.tum.moveii.ops.logbook.api.mapper.LogMapper
@@ -61,7 +61,7 @@ class LogControllerTest extends Specification {
         when:
         def actualResult = logController.getLogs(new LogProperties())
         then:
-        1 * logService.getLogs(_) >> logs
+        1 * logService.getLogs(_, _) >> logs
         actualResult.size() == logs.size()
         where:
         logs                   | _

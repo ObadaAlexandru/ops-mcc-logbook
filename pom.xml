@@ -28,7 +28,7 @@
         <hikaricp.version>2.4.6</hikaricp.version>
         <postgresql.version>9.4-1206-jdbc42</postgresql.version>
         <oracle.ojdbc.version>11.1.0.7.0</oracle.ojdbc.version>
-        <querydsl.version>3.7.4</querydsl.version>
+        <querydsl.version>4.1.4</querydsl.version>
         <!-- test dependencies -->
         <groovy.version>2.4.8</groovy.version>
         <cucumber.version>1.2.4</cucumber.version>
@@ -54,6 +54,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -83,14 +89,20 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.mysema.querydsl</groupId>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-core</artifactId>
+            <version>${querydsl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
             <version>${querydsl.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.mysema.querydsl</groupId>
+            <groupId>com.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
             <version>${querydsl.version}</version>
+            <scope>provided</scope>
         </dependency>
 
 
@@ -126,8 +138,8 @@
             </plugin>
             <plugin>
                 <groupId>com.mysema.maven</groupId>
-                <artifactId>maven-apt-plugin</artifactId>
-                <version>1.0</version>
+                <artifactId>apt-maven-plugin</artifactId>
+                <version>1.1.3</version>
                 <executions>
                     <execution>
                         <phase>generate-sources</phase>
@@ -136,7 +148,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>target/generated-sources</outputDirectory>
-                            <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+                            <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
                         </configuration>
                     </execution>
                 </executions>

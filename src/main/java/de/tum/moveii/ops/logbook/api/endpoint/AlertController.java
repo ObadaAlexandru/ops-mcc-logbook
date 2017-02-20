@@ -8,6 +8,7 @@ import de.tum.moveii.ops.logbook.api.message.ErrorMessage;
 import de.tum.moveii.ops.logbook.error.AlertNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -51,7 +52,7 @@ public class AlertController {
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
     public List<AlertMessage> getAlerts(AlertProperties alertProperties) {
-        List<Alert> alerts = alertService.getAlerts(alertProperties.buildPredicate());
+        List<Alert> alerts = alertService.getAlerts(alertProperties.buildPredicate(), new PageRequest(alertProperties.getPageIndex(), alertProperties.getPageSize()));
         return alerts.stream()
                 .map(alertMapper::toMessage)
                 .collect(Collectors.toList());
