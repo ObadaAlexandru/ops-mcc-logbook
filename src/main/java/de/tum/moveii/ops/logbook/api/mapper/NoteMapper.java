@@ -4,8 +4,6 @@ import de.tum.moveii.ops.logbook.alert.model.Note;
 import de.tum.moveii.ops.logbook.api.message.NoteMessage;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
-
 /**
  * Created by Constantin Costescu on 12-Feb-17.
  */
@@ -17,7 +15,7 @@ public class NoteMapper implements ResourceMapper<NoteMessage, Note> {
                 .noteId(message.getNoteId())
                 .message(message.getMessage())
                 .ownerId(message.getOwner())
-                .createdOn(Timestamp.valueOf(message.getCreatedOn()))
+                .createdOn(message.getCreatedOn())
                 .build();
     }
 
@@ -27,7 +25,7 @@ public class NoteMapper implements ResourceMapper<NoteMessage, Note> {
                 .noteId(resource.getNoteId())
                 .message(resource.getMessage())
                 .owner(resource.getOwnerId())
-                .createdOn(resource.getCreatedOn().toLocalDateTime())
+                .createdOn(resource.getCreatedOn())
                 .build();
     }
 }

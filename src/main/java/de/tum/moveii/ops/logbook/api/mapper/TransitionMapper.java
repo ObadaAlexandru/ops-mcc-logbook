@@ -4,8 +4,6 @@ import de.tum.moveii.ops.logbook.alert.model.Transition;
 import de.tum.moveii.ops.logbook.api.message.TransitionMessage;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
-
 
 /**
  * Created by Constantin Costescu on 12-Feb-17.
@@ -19,7 +17,7 @@ public class TransitionMapper implements ResourceMapper<TransitionMessage, Trans
                 .startState(message.getStartState())
                 .endState(message.getEndState())
                 .ownerId(message.getOwner())
-                .createdOn(Timestamp.valueOf(message.getCreatedOn()))
+                .createdOn(message.getCreatedOn())
                 .build();
     }
 
@@ -30,7 +28,7 @@ public class TransitionMapper implements ResourceMapper<TransitionMessage, Trans
                 .startState(resource.getStartState())
                 .endState(resource.getEndState())
                 .owner(resource.getOwnerId())
-                .createdOn(resource.getCreatedOn().toLocalDateTime())
+                .createdOn(resource.getCreatedOn())
                 .build();
     }
 }

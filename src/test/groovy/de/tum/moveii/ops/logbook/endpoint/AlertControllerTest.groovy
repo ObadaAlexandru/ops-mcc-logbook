@@ -1,6 +1,6 @@
 package de.tum.moveii.ops.logbook.endpoint
 
-import com.mysema.query.types.Predicate
+import com.querydsl.core.types.Predicate
 import de.tum.moveii.ops.logbook.alert.model.Alert
 import de.tum.moveii.ops.logbook.alert.service.AlertService
 import de.tum.moveii.ops.logbook.api.endpoint.AlertController
@@ -61,7 +61,7 @@ class AlertControllerTest extends Specification {
         when:
         def actualResult = alertController.getAlerts(new AlertProperties())
         then:
-        1 * alertService.getAlerts(_) >> alerts
+        1 * alertService.getAlerts(_, _) >> alerts
         actualResult.size() == alerts.size()
         where:
         alerts                     | _

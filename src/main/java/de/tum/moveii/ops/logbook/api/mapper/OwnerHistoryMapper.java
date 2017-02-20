@@ -4,8 +4,6 @@ import de.tum.moveii.ops.logbook.alert.model.OwnerHistory;
 import de.tum.moveii.ops.logbook.api.message.OwnerHistoryMessage;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
-
 /**
  * Created by Constantin Costescu on 12-Feb-17.
  */
@@ -18,7 +16,7 @@ public class OwnerHistoryMapper implements ResourceMapper<OwnerHistoryMessage, O
                 .ownerId(message.getOwner())
                 .oldOwnerId(message.getOwner())
                 .newOwnerId(message.getNewOwner())
-                .createdOn(Timestamp.valueOf(message.getCreatedOn()))
+                .createdOn(message.getCreatedOn())
                 .build();
     }
 
@@ -29,7 +27,7 @@ public class OwnerHistoryMapper implements ResourceMapper<OwnerHistoryMessage, O
                 .owner(resource.getOwnerId())
                 .oldOwner(resource.getOldOwnerId())
                 .newOwner(resource.getNewOwnerId())
-                .createdOn(resource.getCreatedOn().toLocalDateTime())
+                .createdOn(resource.getCreatedOn())
                 .build();
     }
 }

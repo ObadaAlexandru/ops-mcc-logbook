@@ -1,11 +1,12 @@
 package de.tum.moveii.ops.logbook.alert.service;
 
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.Predicate;
 import de.tum.moveii.ops.logbook.alert.model.Alert;
 import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,19 +16,25 @@ import java.util.Optional;
 @Component
 public class AlertServiceImpl implements AlertService {
 
-    //TODO requires defined alert entity
+    private AlertRepository alertRepository;
+
+    @Autowired
+    public AlertServiceImpl(AlertRepository alertRepository) {
+        this.alertRepository = alertRepository;
+    }
+
     @Override
     public Alert create(@NonNull Alert alarm) {
-        return null;
+        return alertRepository.save(alarm);
     }
 
     @Override
     public Optional<Alert> getAlert(@NonNull Long alertId) {
-        return Optional.empty();
+        return Optional.ofNullable(alertRepository.findOne(alertId));
     }
 
     @Override
-    public List<Alert> getAlerts(Predicate predicate) {
-        return Collections.emptyList();
+    public List<Alert> getAlerts(Predicate predicate, Pageable pageable) {
+        return alertRepository.findAll(predicate, pageable).getContent();
     }
 }
