@@ -1,11 +1,8 @@
-import de.tum.moveii.ops.logbook.alert.model.*
+import de.tum.moveii.ops.logbook.alert.model.Alert
+import de.tum.moveii.ops.logbook.alert.model.AlertSeverity
+import de.tum.moveii.ops.logbook.alert.model.AlertState
 import de.tum.moveii.ops.logbook.api.mapper.AlertMapper
 import de.tum.moveii.ops.logbook.api.message.AlertMessage
-import de.tum.moveii.ops.logbook.api.message.LogMessage
-import de.tum.moveii.ops.logbook.api.message.NoteMessage
-import de.tum.moveii.ops.logbook.api.message.OwnerHistoryMessage
-import de.tum.moveii.ops.logbook.api.message.TransitionMessage
-import de.tum.moveii.ops.logbook.log.model.Log
 import spock.lang.Specification
 
 import java.time.LocalDateTime
@@ -30,10 +27,10 @@ class AlertMapperTest extends Specification {
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
                 .ownerId(2L)
                 .createdBy(null)
-                .logMessages(new ArrayList<Log>())
-                .notes(new ArrayList<Note>())
-                .transitions(new ArrayList<Transition>())
-                .ownerHistory(new ArrayList<OwnerHistory>())
+                .logMessages([])
+                .notes([])
+                .transitions([])
+                .ownerHistory([])
                 .build()
 
 
@@ -46,10 +43,10 @@ class AlertMapperTest extends Specification {
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
                 .owner(2L)
                 .createdBy(null)
-                .logMessages(new ArrayList<LogMessage>())
-                .notes(new ArrayList<NoteMessage>())
-                .transitions(new ArrayList<TransitionMessage>())
-                .ownerHistory(new ArrayList<OwnerHistoryMessage>())
+                .logMessages([])
+                .notes([])
+                .transitions([])
+                .ownerHistory([])
                 .build()
 
         when:
@@ -58,7 +55,7 @@ class AlertMapperTest extends Specification {
         actualAlertMessage == alertMessage
     }
 
-    def 'Map null lists to alert'() {
+    def 'Null logs, notes, transitions, ownerHistory'() {
         given:
         def alertId = 1L
         def alert = Alert.builder()
@@ -68,12 +65,7 @@ class AlertMapperTest extends Specification {
                 .message("test_msg")
                 .state(AlertState.NEW)
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
-                .ownerId(null)
                 .createdBy("com_bot")
-                .logMessages(null)
-                .notes(null)
-                .transitions(null)
-                .ownerHistory(null)
                 .build()
 
         def alertMessage = AlertMessage.builder()
@@ -83,12 +75,7 @@ class AlertMapperTest extends Specification {
                 .message("test_msg")
                 .state(AlertState.NEW)
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
-                .owner(null)
                 .createdBy("com_bot")
-                .logMessages(null)
-                .notes(null)
-                .transitions(null)
-                .ownerHistory(null)
                 .build()
         when:
         def actualAlert = alertMapper.toResource(alertMessage)

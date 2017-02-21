@@ -22,7 +22,6 @@ class TransitionMapperTest extends Specification {
                 .startState(AlertState.NEW)
                 .endState(AlertState.ACKNOWLEDGED)
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
-                .alert(null)
                 .build()
 
         def transitionMessage = TransitionMessage.builder()
@@ -47,7 +46,6 @@ class TransitionMapperTest extends Specification {
                 .startState(AlertState.NEW)
                 .endState(AlertState.ACKNOWLEDGED)
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
-                .alert(null)
                 .build()
 
         def transitionMessage = TransitionMessage.builder()

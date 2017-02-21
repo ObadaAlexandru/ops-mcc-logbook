@@ -20,7 +20,6 @@ class NoteMapperTest extends Specification {
                 .ownerId(2L)
                 .message("test_msg")
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
-                .alert(null)
                 .build()
 
         def noteMessage = NoteMessage.builder()
@@ -43,7 +42,6 @@ class NoteMapperTest extends Specification {
                 .ownerId(2L)
                 .message("test_msg")
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
-                .alert(null)
                 .build()
 
         def noteMessage = NoteMessage.builder()

@@ -21,7 +21,6 @@ class OwnerHistoryMapperTest extends Specification {
                 .newOwnerId(3L)
                 .ownerId(2L)
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
-                .alert(null)
                 .build()
 
         def ownerHistoryMessage = OwnerHistoryMessage.builder()
@@ -46,7 +45,6 @@ class OwnerHistoryMapperTest extends Specification {
                 .newOwnerId(3L)
                 .ownerId(2L)
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
-                .alert(null)
                 .build()
 
         def ownerHistoryMessage = OwnerHistoryMessage.builder()
