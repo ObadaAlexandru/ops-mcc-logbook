@@ -5,6 +5,8 @@ import de.tum.moveii.ops.logbook.api.message.AlertMessage;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
+import java.util.Collections;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -29,14 +31,18 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
                 .createdOn(message.getCreatedOn())
                 .ownerId(message.getOwner())
                 .createdBy(message.getCreatedBy())
-                .logMessages(message.getLogMessages() == null ? null : message.getLogMessages().stream()
-                        .map(logMapper::toResource).collect(Collectors.toList()))
-                .notes(message.getNotes() == null ? null : message.getNotes().stream()
-                        .map(noteMapper::toResource).collect(Collectors.toList()))
-                .transitions(message.getTransitions() == null ? null : message.getTransitions().stream()
-                        .map(transitionMapper::toResource).collect(Collectors.toList()))
-                .ownerHistory(message.getOwnerHistory() == null ? null : message.getOwnerHistory().stream()
-                        .map(ownerHistoryMapper::toResource).collect(Collectors.toList()))
+                .logMessages(Optional.ofNullable(message.getLogMessages())
+                        .map(logs -> logs.stream().map(logMapper::toResource).collect(Collectors.toList()))
+                        .orElse(Collections.emptyList()))
+                .notes(Optional.ofNullable(message.getNotes())
+                        .map(logs -> logs.stream().map(noteMapper::toResource).collect(Collectors.toList()))
+                        .orElse(Collections.emptyList()))
+                .transitions(Optional.ofNullable(message.getTransitions())
+                        .map(logs -> logs.stream().map(transitionMapper::toResource).collect(Collectors.toList()))
+                        .orElse(Collections.emptyList()))
+                .ownerHistory(Optional.ofNullable(message.getOwnerHistory())
+                        .map(logs -> logs.stream().map(ownerHistoryMapper::toResource).collect(Collectors.toList()))
+                        .orElse(Collections.emptyList()))
                 .build();
     }
 
@@ -51,14 +57,18 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
                 .createdOn(resource.getCreatedOn())
                 .owner(resource.getOwnerId())
                 .createdBy(resource.getCreatedBy())
-                .logMessages(resource.getLogMessages() == null ? null : resource.getLogMessages().stream()
-                        .map(logMapper::toMessage).collect(Collectors.toList()))
-                .notes(resource.getNotes() == null ? null : resource.getNotes().stream()
-                        .map(noteMapper::toMessage).collect(Collectors.toList()))
-                .transitions(resource.getTransitions() == null ? null : resource.getTransitions().stream()
-                        .map(transitionMapper::toMessage).collect(Collectors.toList()))
-                .ownerHistory(resource.getOwnerHistory() == null ? null : resource.getOwnerHistory().stream()
-                        .map(ownerHistoryMapper::toMessage).collect(Collectors.toList()))
+                .logMessages(Optional.ofNullable(resource.getLogMessages())
+                        .map(logs -> logs.stream().map(logMapper::toMessage).collect(Collectors.toList()))
+                        .orElse(Collections.emptyList()))
+                .notes(Optional.ofNullable(resource.getNotes())
+                        .map(logs -> logs.stream().map(noteMapper::toMessage).collect(Collectors.toList()))
+                        .orElse(Collections.emptyList()))
+                .transitions(Optional.ofNullable(resource.getTransitions())
+                        .map(logs -> logs.stream().map(transitionMapper::toMessage).collect(Collectors.toList()))
+                        .orElse(Collections.emptyList()))
+                .ownerHistory(Optional.ofNullable(resource.getOwnerHistory())
+                        .map(logs -> logs.stream().map(ownerHistoryMapper::toMessage).collect(Collectors.toList()))
+                        .orElse(Collections.emptyList()))
                 .build();
     }
 }

@@ -58,15 +58,6 @@ class AlertMapperTest extends Specification {
     def 'Null logs, notes, transitions, ownerHistory'() {
         given:
         def alertId = 1L
-        def alert = Alert.builder()
-                .alertId(alertId)
-                .severity(AlertSeverity.CRITICAL)
-                .subsystem("COM")
-                .message("test_msg")
-                .state(AlertState.NEW)
-                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
-                .createdBy("com_bot")
-                .build()
 
         def alertMessage = AlertMessage.builder()
                 .alertId(alertId)
@@ -76,6 +67,20 @@ class AlertMapperTest extends Specification {
                 .state(AlertState.NEW)
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
                 .createdBy("com_bot")
+                .build()
+
+        def alert = Alert.builder()
+                .alertId(alertId)
+                .severity(AlertSeverity.CRITICAL)
+                .subsystem("COM")
+                .message("test_msg")
+                .state(AlertState.NEW)
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .createdBy("com_bot")
+                .logMessages([])
+                .notes([])
+                .transitions([])
+                .ownerHistory([])
                 .build()
         when:
         def actualAlert = alertMapper.toResource(alertMessage)
