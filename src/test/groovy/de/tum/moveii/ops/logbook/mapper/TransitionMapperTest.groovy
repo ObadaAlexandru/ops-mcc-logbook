@@ -4,7 +4,7 @@ import de.tum.moveii.ops.logbook.api.mapper.TransitionMapper
 import de.tum.moveii.ops.logbook.api.message.TransitionMessage
 import spock.lang.Specification
 
-import java.sql.Timestamp
+import java.time.LocalDateTime
 
 /**
  * Created by Constantin Costescu on 19-Feb-17.
@@ -16,11 +16,22 @@ class TransitionMapperTest extends Specification {
     def 'Map transition to transitionMessage'() {
         given:
         def transitionId = 1L
-        def transition = new Transition(transitionId, 2L, AlertState.NEW, AlertState.ACKNOWLEDGED,
-                Timestamp.valueOf("2016-02-19 10:35:30"), null)
+        def transition = Transition.builder()
+                .transitionId(transitionId)
+                .ownerId(2L)
+                .startState(AlertState.NEW)
+                .endState(AlertState.ACKNOWLEDGED)
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .alert(null)
+                .build()
 
-        def transitionMessage = new TransitionMessage(transitionId, 2L, AlertState.NEW, AlertState.ACKNOWLEDGED,
-                Timestamp.valueOf("2016-02-19 10:35:30").toLocalDateTime())
+        def transitionMessage = TransitionMessage.builder()
+                .transitionId(transitionId)
+                .owner(2L)
+                .startState(AlertState.NEW)
+                .endState(AlertState.ACKNOWLEDGED)
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .build()
         when:
         def actualTransitionMessage = transitionMapper.toMessage(transition)
         then:
@@ -30,11 +41,22 @@ class TransitionMapperTest extends Specification {
     def 'Map transitionMessage to transition'() {
         given:
         def transitionId = 1L
-        def transition = new Transition(transitionId, 2L, AlertState.NEW, AlertState.ACKNOWLEDGED,
-                Timestamp.valueOf("2016-02-19 10:35:30"), null)
+        def transition = Transition.builder()
+                .transitionId(transitionId)
+                .ownerId(2L)
+                .startState(AlertState.NEW)
+                .endState(AlertState.ACKNOWLEDGED)
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .alert(null)
+                .build()
 
-        def transitionMessage = new TransitionMessage(transitionId, 2L, AlertState.NEW, AlertState.ACKNOWLEDGED,
-                Timestamp.valueOf("2016-02-19 10:35:30").toLocalDateTime())
+        def transitionMessage = TransitionMessage.builder()
+                .transitionId(transitionId)
+                .owner(2L)
+                .startState(AlertState.NEW)
+                .endState(AlertState.ACKNOWLEDGED)
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .build()
         when:
         def actualTransition = transitionMapper.toResource(transitionMessage)
         then:

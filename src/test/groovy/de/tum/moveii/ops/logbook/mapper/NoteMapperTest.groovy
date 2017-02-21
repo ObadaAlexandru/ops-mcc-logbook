@@ -3,7 +3,7 @@ import de.tum.moveii.ops.logbook.api.mapper.NoteMapper
 import de.tum.moveii.ops.logbook.api.message.NoteMessage
 import spock.lang.Specification
 
-import java.sql.Timestamp
+import java.time.LocalDateTime
 
 /**
  * Created by Constantin Costescu on 19-Feb-17.
@@ -15,10 +15,20 @@ class NoteMapperTest extends Specification {
     def 'Map note to noteMessage'() {
         given:
         def noteId = 1L
-        def note = new Note(noteId, 2L, "test_msg", Timestamp.valueOf("2016-02-19 10:35:30"), null)
+        def note = Note.builder()
+                .noteId(noteId)
+                .ownerId(2L)
+                .message("test_msg")
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .alert(null)
+                .build()
 
-        def noteMessage = new NoteMessage(noteId, 2L, "test_msg",
-                Timestamp.valueOf("2016-02-19 10:35:30").toLocalDateTime())
+        def noteMessage = NoteMessage.builder()
+                .noteId(noteId)
+                .owner(2L)
+                .message("test_msg")
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .build()
         when:
         def actualNoteMessage = noteMapper.toMessage(note)
         then:
@@ -28,10 +38,20 @@ class NoteMapperTest extends Specification {
     def 'Map noteMessage to note'() {
         given:
         def noteId = 1L
-        def note = new Note(noteId, 2L, "test_msg", Timestamp.valueOf("2016-02-19 10:35:30"), null)
+        def note = Note.builder()
+                .noteId(noteId)
+                .ownerId(2L)
+                .message("test_msg")
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .alert(null)
+                .build()
 
-        def noteMessage = new NoteMessage(noteId, 2L, "test_msg",
-                Timestamp.valueOf("2016-02-19 10:35:30").toLocalDateTime())
+        def noteMessage = NoteMessage.builder()
+                .noteId(noteId)
+                .owner(2L)
+                .message("test_msg")
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .build()
         when:
         def actualNote = noteMapper.toResource(noteMessage)
         then:

@@ -4,7 +4,7 @@ import de.tum.moveii.ops.logbook.log.model.Log
 import de.tum.moveii.ops.logbook.log.model.LogSeverity
 import spock.lang.Specification
 
-import java.sql.Timestamp
+import java.time.LocalDateTime
 
 /**
  * Created by Constantin Costescu on 19-Feb-17.
@@ -16,27 +16,50 @@ class LogMapperTest extends Specification {
     def 'Map log to logMessage'() {
         given:
         def logId = 1L
-        def log = new Log(logId, LogSeverity.CRITICAL, "COM", "test_msg", Timestamp.valueOf("2016-02-19 10:35:30"),
-                Timestamp.valueOf("2016-02-19 10:45:30"))
+        def log = Log.builder()
+                .logId(logId)
+                .severity(LogSeverity.CRITICAL)
+                .subsystem("COM")
+                .message("test_msg")
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .downloadedOn(LocalDateTime.of(2016, 2, 19, 10, 45, 30))
+                .build()
 
-        def logMessage = new LogMessage(logId, LogSeverity.CRITICAL, "COM", "test_msg",
-                Timestamp.valueOf("2016-02-19 10:35:30").toLocalDateTime(),
-                Timestamp.valueOf("2016-02-19 10:45:30").toLocalDateTime())
+        def logMessage = LogMessage.builder()
+                .logId(logId)
+                .severity(LogSeverity.CRITICAL)
+                .subsystem("COM")
+                .message("test_msg")
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .downloadedOn(LocalDateTime.of(2016, 2, 19, 10, 45, 30))
+                .build()
         when:
         def actualLogMessage = logMapper.toMessage(log)
         then:
         actualLogMessage == logMessage
+
     }
 
     def 'Map logMessage to log'() {
         given:
         def logId = 1L
-        def log = new Log(logId, LogSeverity.CRITICAL, "COM", "test_msg", Timestamp.valueOf("2016-02-19 10:35:30"),
-                Timestamp.valueOf("2016-02-19 10:45:30"))
+        def log = Log.builder()
+                .logId(logId)
+                .severity(LogSeverity.CRITICAL)
+                .subsystem("COM")
+                .message("test_msg")
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .downloadedOn(LocalDateTime.of(2016, 2, 19, 10, 45, 30))
+                .build()
 
-        def logMessage = new LogMessage(logId, LogSeverity.CRITICAL, "COM", "test_msg",
-                Timestamp.valueOf("2016-02-19 10:35:30").toLocalDateTime(),
-                Timestamp.valueOf("2016-02-19 10:45:30").toLocalDateTime())
+        def logMessage = LogMessage.builder()
+                .logId(logId)
+                .severity(LogSeverity.CRITICAL)
+                .subsystem("COM")
+                .message("test_msg")
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .downloadedOn(LocalDateTime.of(2016, 2, 19, 10, 45, 30))
+                .build()
         when:
         def actualLog = logMapper.toResource(logMessage)
         then:

@@ -1,10 +1,14 @@
 import de.tum.moveii.ops.logbook.alert.model.*
 import de.tum.moveii.ops.logbook.api.mapper.AlertMapper
-import de.tum.moveii.ops.logbook.api.message.*
+import de.tum.moveii.ops.logbook.api.message.AlertMessage
+import de.tum.moveii.ops.logbook.api.message.LogMessage
+import de.tum.moveii.ops.logbook.api.message.NoteMessage
+import de.tum.moveii.ops.logbook.api.message.OwnerHistoryMessage
+import de.tum.moveii.ops.logbook.api.message.TransitionMessage
 import de.tum.moveii.ops.logbook.log.model.Log
 import spock.lang.Specification
 
-import java.sql.Timestamp
+import java.time.LocalDateTime
 
 /**
  * Created by Constantin Costescu on 19-Feb-17.
@@ -16,23 +20,38 @@ class AlertMapperTest extends Specification {
     def 'Map alert to alertMessage'() {
         given:
         def alertId = 1L
-        def alert = new Alert(alertId, AlertSeverity.CRITICAL, "COM", "test_msg", AlertState.NEW,
-                Timestamp.valueOf("2016-02-19 10:35:30"),
-                2L,
-                null,
-                new ArrayList<Log>(),
-                new ArrayList<Note>(),
-                new ArrayList<Transition>(),
-                new ArrayList<OwnerHistory>())
 
-        def alertMessage = new AlertMessage(alertId, AlertSeverity.CRITICAL, "COM", "test_msg", AlertState.NEW,
-                Timestamp.valueOf("2016-02-19 10:35:30").toLocalDateTime(),
-                2L,
-                null,
-                new ArrayList<LogMessage>(),
-                new ArrayList<NoteMessage>(),
-                new ArrayList<TransitionMessage>(),
-                new ArrayList<OwnerHistoryMessage>())
+        def alert = Alert.builder()
+                .alertId(alertId)
+                .severity(AlertSeverity.CRITICAL)
+                .subsystem("COM")
+                .message("test_msg")
+                .state(AlertState.NEW)
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .ownerId(2L)
+                .createdBy(null)
+                .logMessages(new ArrayList<Log>())
+                .notes(new ArrayList<Note>())
+                .transitions(new ArrayList<Transition>())
+                .ownerHistory(new ArrayList<OwnerHistory>())
+                .build()
+
+
+        def alertMessage = AlertMessage.builder()
+                .alertId(alertId)
+                .severity(AlertSeverity.CRITICAL)
+                .subsystem("COM")
+                .message("test_msg")
+                .state(AlertState.NEW)
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .owner(2L)
+                .createdBy(null)
+                .logMessages(new ArrayList<LogMessage>())
+                .notes(new ArrayList<NoteMessage>())
+                .transitions(new ArrayList<TransitionMessage>())
+                .ownerHistory(new ArrayList<OwnerHistoryMessage>())
+                .build()
+
         when:
         def actualAlertMessage = alertMapper.toMessage(alert)
         then:
@@ -42,23 +61,35 @@ class AlertMapperTest extends Specification {
     def 'Map null lists to alert'() {
         given:
         def alertId = 1L
-        def alert = new Alert(alertId, AlertSeverity.CRITICAL, "COM", "test_msg", AlertState.NEW,
-                Timestamp.valueOf("2016-02-19 10:35:30"),
-                null,
-                "COM",
-                null,
-                null,
-                null,
-                null)
+        def alert = Alert.builder()
+                .alertId(alertId)
+                .severity(AlertSeverity.CRITICAL)
+                .subsystem("COM")
+                .message("test_msg")
+                .state(AlertState.NEW)
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .ownerId(null)
+                .createdBy("com_bot")
+                .logMessages(null)
+                .notes(null)
+                .transitions(null)
+                .ownerHistory(null)
+                .build()
 
-        def alertMessage = new AlertMessage(alertId, AlertSeverity.CRITICAL, "COM", "test_msg", AlertState.NEW,
-                Timestamp.valueOf("2016-02-19 10:35:30").toLocalDateTime(),
-                null,
-                "COM",
-                null,
-                null,
-                null,
-                null)
+        def alertMessage = AlertMessage.builder()
+                .alertId(alertId)
+                .severity(AlertSeverity.CRITICAL)
+                .subsystem("COM")
+                .message("test_msg")
+                .state(AlertState.NEW)
+                .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
+                .owner(null)
+                .createdBy("com_bot")
+                .logMessages(null)
+                .notes(null)
+                .transitions(null)
+                .ownerHistory(null)
+                .build()
         when:
         def actualAlert = alertMapper.toResource(alertMessage)
         then:
