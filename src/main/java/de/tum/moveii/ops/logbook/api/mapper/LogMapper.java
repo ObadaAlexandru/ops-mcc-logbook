@@ -5,7 +5,6 @@ import de.tum.moveii.ops.logbook.log.model.Log;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 
 /**
  * Created by csoare on 2/3/17.
@@ -19,8 +18,8 @@ public class LogMapper implements ResourceMapper<LogMessage, Log> {
                 .severity(message.getSeverity())
                 .subsystem(message.getSubsystem())
                 .message(message.getMessage())
-                .createdOn(Timestamp.valueOf(message.getCreatedOn()))
-                .downloadedOn(Timestamp.valueOf(message.getDownloadedOn()))
+                .createdOn(message.getCreatedOn())
+                .downloadedOn(message.getDownloadedOn())
                 .build();
     }
 
@@ -31,8 +30,8 @@ public class LogMapper implements ResourceMapper<LogMessage, Log> {
                 .severity(resource.getSeverity())
                 .subsystem(resource.getSubsystem())
                 .message(resource.getMessage())
-                .createdOn(resource.getCreatedOn().toLocalDateTime())
-                .downloadedOn(resource.getDownloadedOn().toLocalDateTime())
+                .createdOn(resource.getCreatedOn())
+                .downloadedOn(resource.getDownloadedOn())
                 .build();
     }
 }

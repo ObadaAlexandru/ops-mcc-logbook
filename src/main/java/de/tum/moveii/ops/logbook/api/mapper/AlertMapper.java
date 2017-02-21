@@ -5,7 +5,6 @@ import de.tum.moveii.ops.logbook.api.message.AlertMessage;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 import java.util.stream.Collectors;
 
 /**
@@ -27,7 +26,7 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
                 .subsystem(message.getSubsystem())
                 .message(message.getMessage())
                 .state(message.getState())
-                .createdOn(Timestamp.valueOf(message.getCreatedOn()))
+                .createdOn(message.getCreatedOn())
                 .ownerId(message.getOwner())
                 .createdBy(message.getCreatedBy())
                 .logMessages(message.getLogMessages() == null ? null : message.getLogMessages().stream()
@@ -49,7 +48,7 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
                 .subsystem(resource.getSubsystem())
                 .message(resource.getMessage())
                 .state(resource.getState())
-                .createdOn(resource.getCreatedOn().toLocalDateTime())
+                .createdOn(resource.getCreatedOn())
                 .owner(resource.getOwnerId())
                 .createdBy(resource.getCreatedBy())
                 .logMessages(resource.getLogMessages() == null ? null : resource.getLogMessages().stream()
