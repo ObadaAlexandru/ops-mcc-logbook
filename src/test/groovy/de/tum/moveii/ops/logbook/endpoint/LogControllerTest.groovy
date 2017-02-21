@@ -2,14 +2,15 @@
  * Created by Cristian Soare on 2/4/17.
  */
 
-import com.mysema.query.types.Predicate
-import de.tum.moveii.ops.logbook.log.model.Log
-import de.tum.moveii.ops.logbook.log.service.LogService
+
+import com.querydsl.core.types.Predicate
 import de.tum.moveii.ops.logbook.api.endpoint.LogController
 import de.tum.moveii.ops.logbook.api.endpoint.LogProperties
 import de.tum.moveii.ops.logbook.api.mapper.LogMapper
 import de.tum.moveii.ops.logbook.api.message.LogMessage
 import de.tum.moveii.ops.logbook.error.LogNotFoundException
+import de.tum.moveii.ops.logbook.log.model.Log
+import de.tum.moveii.ops.logbook.log.service.LogService
 import spock.lang.Specification
 
 class LogControllerTest extends Specification {
@@ -60,7 +61,7 @@ class LogControllerTest extends Specification {
         when:
         def actualResult = logController.getLogs(new LogProperties())
         then:
-        1 * logService.getLogs(_) >> logs
+        1 * logService.getLogs(_, _) >> logs
         actualResult.size() == logs.size()
         where:
         logs                   | _

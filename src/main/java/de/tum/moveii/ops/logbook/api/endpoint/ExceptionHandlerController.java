@@ -2,6 +2,8 @@ package de.tum.moveii.ops.logbook.api.endpoint;
 
 import de.tum.moveii.ops.logbook.api.message.ErrorMessage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,9 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Collectors;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED;
+import static org.springframework.http.HttpStatus.*;
 
 /**
  * Created by Alexandru Obada on 01/02/17.
@@ -26,10 +26,15 @@ public class ExceptionHandlerController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorMessage handleBadRequest(MethodArgumentNotValidException methodArgumentException) {
         log.warn("Malformed message has been received: {}", methodArgumentException);
-        String errorMessage = methodArgumentException.getBindingResult().getAllErrors().stream()
-                .map(error -> (FieldError) error)
-                .map(error -> String.format("%s %s", error.getField(), error.getDefaultMessage()))
-                .collect(Collectors.joining("\n"));
+        String errorMessage = getErrorMessage(methodArgumentException.getBindingResult());
+        return new ErrorMessage(errorMessage);
+    }
+
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(BindException.class)
+    public ErrorMessage handleBindingException(BindException bindException) {
+        log.warn("Malformed message has been received: {}", bindException);
+        String errorMessage = getErrorMessage(bindException.getBindingResult());
         return new ErrorMessage(errorMessage);
     }
 
@@ -45,5 +50,12 @@ public class ExceptionHandlerController {
     public ErrorMessage handleServerSideError(Exception exception) {
         log.error("Unexpected error: {}", exception);
         return new ErrorMessage("server side error");
+    }
+
+    private String getErrorMessage(BindingResult bindingResult) {
+        return bindingResult.getAllErrors().stream()
+                .map(error -> (FieldError) error)
+                .map(error -> String.format("%s %s", error.getField(), error.getDefaultMessage()))
+                .collect(Collectors.joining("\n"));
     }
 }

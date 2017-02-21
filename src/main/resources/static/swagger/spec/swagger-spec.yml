@@ -205,10 +205,6 @@ paths:
             - RESOLVED
           default: NEW
           required: false
-        - name: userId
-          in: query
-          type: string
-          required: false
         - name: pageSize
           in: query
           type: integer
@@ -220,7 +216,7 @@ paths:
           in: query
           type: integer
           required: false
-          default: 0
+          default: 1
       tags:
         - Alerts
       produces:

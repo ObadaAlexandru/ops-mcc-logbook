@@ -1,14 +1,10 @@
 package de.tum.moveii.ops.logbook.alert.model;
 
 import de.tum.moveii.ops.logbook.log.model.Log;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -44,8 +40,7 @@ public class Alert {
     private AlertState state;
 
     @Column(name = "createdOn", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp createdOn;
+    private LocalDateTime createdOn;
 
     @Column(name = "ownerId")
     private Long ownerId;
