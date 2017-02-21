@@ -35,13 +35,13 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
                         .map(logs -> logs.stream().map(logMapper::toResource).collect(Collectors.toList()))
                         .orElse(Collections.emptyList()))
                 .notes(Optional.ofNullable(message.getNotes())
-                        .map(logs -> logs.stream().map(noteMapper::toResource).collect(Collectors.toList()))
+                        .map(notes -> notes.stream().map(noteMapper::toResource).collect(Collectors.toList()))
                         .orElse(Collections.emptyList()))
                 .transitions(Optional.ofNullable(message.getTransitions())
-                        .map(logs -> logs.stream().map(transitionMapper::toResource).collect(Collectors.toList()))
+                        .map(transitions -> transitions.stream().map(transitionMapper::toResource).collect(Collectors.toList()))
                         .orElse(Collections.emptyList()))
                 .ownerHistory(Optional.ofNullable(message.getOwnerHistory())
-                        .map(logs -> logs.stream().map(ownerHistoryMapper::toResource).collect(Collectors.toList()))
+                        .map(ownerHistory -> ownerHistory.stream().map(ownerHistoryMapper::toResource).collect(Collectors.toList()))
                         .orElse(Collections.emptyList()))
                 .build();
     }
@@ -61,13 +61,13 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
                         .map(logs -> logs.stream().map(logMapper::toMessage).collect(Collectors.toList()))
                         .orElse(Collections.emptyList()))
                 .notes(Optional.ofNullable(resource.getNotes())
-                        .map(logs -> logs.stream().map(noteMapper::toMessage).collect(Collectors.toList()))
+                        .map(notes -> notes.stream().map(noteMapper::toMessage).collect(Collectors.toList()))
                         .orElse(Collections.emptyList()))
                 .transitions(Optional.ofNullable(resource.getTransitions())
-                        .map(logs -> logs.stream().map(transitionMapper::toMessage).collect(Collectors.toList()))
+                        .map(transitions -> transitions.stream().map(transitionMapper::toMessage).collect(Collectors.toList()))
                         .orElse(Collections.emptyList()))
                 .ownerHistory(Optional.ofNullable(resource.getOwnerHistory())
-                        .map(logs -> logs.stream().map(ownerHistoryMapper::toMessage).collect(Collectors.toList()))
+                        .map(ownerHistory -> ownerHistory.stream().map(ownerHistoryMapper::toMessage).collect(Collectors.toList()))
                         .orElse(Collections.emptyList()))
                 .build();
     }
