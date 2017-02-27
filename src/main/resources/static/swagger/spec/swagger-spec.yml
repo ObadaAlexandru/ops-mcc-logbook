@@ -277,6 +277,9 @@ definitions:
   LogMessage:
     type: object
     properties:
+      logId:
+        type: integer
+        format: int64
       message:
         type: string
       severity:
@@ -289,11 +292,20 @@ definitions:
           - CRITICAL
       subsystem:
         type: string
+      createdOn:
+        type: string
+        format: date-time
+      downloadedOn:
+        type: string
+        format: date-time
 
 
   Alert:
     type: object
     properties:
+      alertId:
+        type: integer
+        format: int64
       message:
         type: string
       owner:
@@ -305,6 +317,9 @@ definitions:
           - NEW
           - ACKNOWLEDGED
           - RESOLVED
+      createdOn:
+        type: string
+        format: date-time
       notes:
         type: array
         items:
