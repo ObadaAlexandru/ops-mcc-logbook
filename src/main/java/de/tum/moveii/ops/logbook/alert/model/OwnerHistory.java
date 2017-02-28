@@ -10,13 +10,14 @@ import java.time.LocalDateTime;
  * Created by Constantin Costescu on 07-Feb-17.
  */
 @Entity
-@Table(name = "logbook.ownerHistory")
+@Table(name = "ownerHistory", schema = "logbook")
 @Data
 @Builder
 public class OwnerHistory {
     @Id
-    @SequenceGenerator(name = "logbook.ownerHistory_ownerHistoryId_seq",
-            sequenceName = "logbook.ownerHistory_ownerHistoryId_seq",
+    @SequenceGenerator(name = "ownerHistory_ownerHistoryId_seq",
+            sequenceName = "ownerHistory_ownerHistoryId_seq",
+            schema = "logbook",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ownerHistoryId", nullable = false, updatable = false)

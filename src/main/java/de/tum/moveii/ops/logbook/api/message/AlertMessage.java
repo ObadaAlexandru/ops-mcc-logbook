@@ -22,7 +22,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 @NoArgsConstructor
 @Builder
 public class AlertMessage {
-    @NotNull
     private Long alertId;
     @NotNull
     private AlertSeverity severity;

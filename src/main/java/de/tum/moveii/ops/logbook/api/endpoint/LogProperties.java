@@ -25,7 +25,7 @@ public class LogProperties {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime until = LocalDateTime.now();
     private Integer pageSize = 50;
-    private Integer pageIndex = 1;
+    private Integer pageIndex = 0;
 
     public Predicate buildPredicate() {
         QLog logQuery = QLog.log;

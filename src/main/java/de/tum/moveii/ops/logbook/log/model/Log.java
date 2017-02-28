@@ -12,15 +12,16 @@ import java.time.LocalDateTime;
  * Created by csoare on 2/3/17.
  */
 @Entity
-@Table(name = "logbook.logmessages")
+@Table(name = "logmessages", schema = "logbook")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 public class Log {
     @Id
-    @SequenceGenerator(name = "logbook.logmessages_logId_seq",
-            sequenceName = "logbook.logmessages_logId_seq",
+    @SequenceGenerator(name = "logmessages_logId_seq",
+            sequenceName = "logmessages_logId_seq",
+            schema = "logbook",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "logId", nullable = false, updatable = false)

@@ -9,5 +9,5 @@ target
 *.mb
 
 # Logs
- logs
- *.log
+logs
+*.log
