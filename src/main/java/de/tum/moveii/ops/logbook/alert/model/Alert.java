@@ -11,15 +11,16 @@ import java.util.List;
  * Created by Alexandru Obada on 29/01/17.
  */
 @Entity
-@Table(name = "logbook.alerts")
+@Table(name = "logbook.alerts", schema = "logbook")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 public class Alert {
     @Id
-    @SequenceGenerator(name = "logbook.alerts_alertId_seq",
-            sequenceName = "logbook.alerts_alertId_seq",
+    @SequenceGenerator(name = "alerts_alertId_seq",
+            sequenceName = "alerts_alertId_seq",
+            schema = "logbook",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "alertId", nullable = false, updatable = false)

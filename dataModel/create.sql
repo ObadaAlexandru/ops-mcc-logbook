@@ -5,43 +5,45 @@ CREATE SCHEMA logbook;
 COMMENT ON SCHEMA logbook
     IS 'Scheme for logbook';
 
+CREATE SEQUENCE hibernate_sequence START 1 INCREMENT BY 1;
+
 -- Table: logbook.logmessages
 CREATE TABLE logbook.logmessages
 (
-    "logId" bigserial NOT NULL,
+    log_id bigserial NOT NULL,
     severity text NOT NULL,
     subsystem text NOT NULL,
     message text NOT NULL,
-    "createdOn" timestamp without time zone NOT NULL,
-    "downloadedOn" timestamp without time zone NOT NULL,
-    CONSTRAINT log_pkey PRIMARY KEY ("logId")
+    created_on timestamp without time zone NOT NULL,
+    downloaded_on timestamp without time zone NOT NULL,
+    CONSTRAINT log_pkey PRIMARY KEY (log_id)
 );
 
 -- Table: logbook.alert
 CREATE TABLE logbook.alerts
 (
-    "alertId" bigserial NOT NULL,
+    alert_id bigserial NOT NULL,
     severity text NOT NULL,
     subsystem text NOT NULL,
     message text NOT NULL,
     "state" text NOT NULL,
-    "createdOn" timestamp without time zone NOT NULL,
-    "ownerId" bigint, -- can be null when first created by system
-    "createdBy" text, -- if the alert is created by system
-    CONSTRAINT alert_pkey PRIMARY KEY ("alertId")
+    created_on timestamp without time zone NOT NULL,
+    owner_id bigint, -- can be null when first created by system
+    created_by text, -- if the alert is created by system
+    CONSTRAINT alert_pkey PRIMARY KEY (alert_id)
 );
 
 CREATE TABLE logbook.alert_log
 (
-    "alertId" bigint NOT NULL,
-    "logId" bigint NOT NULL,
-    CONSTRAINT alert_log_pkey PRIMARY KEY ("alertId", "logId"),
-    CONSTRAINT alert_fk FOREIGN KEY ("alertId")
-        REFERENCES logbook.alerts ("alertId") MATCH SIMPLE
+    alert_id bigint NOT NULL,
+    log_id bigint NOT NULL,
+    CONSTRAINT alert_log_pkey PRIMARY KEY (alert_id, log_id),
+    CONSTRAINT alert_fk FOREIGN KEY (alert_id)
+        REFERENCES logbook.alerts (alert_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT logId_fk FOREIGN KEY ("logId")
-        REFERENCES logbook.logmessages ("logId") MATCH SIMPLE
+    CONSTRAINT log_id_fk FOREIGN KEY (log_id)
+        REFERENCES logbook.logmessages (log_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 
@@ -50,14 +52,14 @@ CREATE TABLE logbook.alert_log
 -- Table: logbook.notes
 CREATE TABLE logbook.notes
 (
-    "noteId" bigserial NOT NULL,
-    "ownerId" bigint NOT NULL,
-    "alertId" bigint NOT NULL,
+    note_id bigserial NOT NULL,
+    owner_id bigint NOT NULL,
+    alert_id bigint NOT NULL,
     message text NOT NULL,
-    "createdOn" timestamp without time zone NOT NULL,
-    CONSTRAINT note_pkey PRIMARY KEY ("noteId"),
-    CONSTRAINT alert_fk FOREIGN KEY ("alertId")
-        REFERENCES logbook.alerts ("alertId") MATCH SIMPLE
+    created_on timestamp without time zone NOT NULL,
+    CONSTRAINT note_pkey PRIMARY KEY (note_id),
+    CONSTRAINT alert_fk FOREIGN KEY (alert_id)
+        REFERENCES logbook.alerts (alert_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
@@ -65,15 +67,15 @@ CREATE TABLE logbook.notes
 -- Table: logbook.transitions
 CREATE TABLE logbook.transitions
 (
-    "transitionId" bigserial NOT NULL,
-    "ownerId" bigint NOT NULL,
-    "alertId" bigint NOT NULL,
-    "startState" text NOT NULL,
-    "endState" text NOT NULL,
-    "createdOn" timestamp without time zone NOT NULL,
-    CONSTRAINT transition_pkey PRIMARY KEY ("transitionId"),
-    CONSTRAINT alert_fk FOREIGN KEY ("alertId")
-        REFERENCES logbook.alerts ("alertId") MATCH SIMPLE
+    transition_id bigserial NOT NULL,
+    owner_id bigint NOT NULL,
+    alert_id bigint NOT NULL,
+    start_state text NOT NULL,
+    end_state text NOT NULL,
+    created_on timestamp without time zone NOT NULL,
+    CONSTRAINT transition_pkey PRIMARY KEY (transition_id),
+    CONSTRAINT alert_fk FOREIGN KEY (alert_id)
+        REFERENCES logbook.alerts (alert_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
@@ -81,15 +83,15 @@ CREATE TABLE logbook.transitions
 -- Table: logbook.alertOwnerHistory
 CREATE TABLE logbook."ownerHistory"
 (
-    "ownerHistoryId" bigserial NOT NULL,
-    "ownerId" bigint NOT NULL,
-    "oldOwnerId" bigint NOT NULL,
-    "newOwnerId" bigint NOT NULL,
-    "alertId" bigint NOT NULL,
-    "createdOn" timestamp without time zone NOT NULL,
-    CONSTRAINT alertowners_pkey PRIMARY KEY ("ownerHistoryId"),
-    CONSTRAINT alert_fk FOREIGN KEY ("alertId")
-        REFERENCES logbook.alerts ("alertId") MATCH SIMPLE
+    owner_history_id bigserial NOT NULL,
+    owner_id bigint NOT NULL,
+    oldOwner_id bigint NOT NULL,
+    new_owner_id bigint NOT NULL,
+    alert_id bigint NOT NULL,
+    created_on timestamp without time zone NOT NULL,
+    CONSTRAINT alertowners_pkey PRIMARY KEY (owner_history_id),
+    CONSTRAINT alert_fk FOREIGN KEY (alert_id)
+        REFERENCES logbook.alerts (alert_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );

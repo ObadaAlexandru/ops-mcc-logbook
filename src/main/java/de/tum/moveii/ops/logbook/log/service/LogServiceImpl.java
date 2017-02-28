@@ -4,6 +4,7 @@ import com.querydsl.core.types.Predicate;
 import de.tum.moveii.ops.logbook.log.model.Log;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +35,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public List<Log> getLogs(@NonNull Predicate predicate, @NonNull Pageable pageable) {
-        return logRepository.findAll(predicate, pageable).getContent();
+        Page<Log> logs = logRepository.findAll(predicate, pageable);
+        return logs.getContent();
     }
 }

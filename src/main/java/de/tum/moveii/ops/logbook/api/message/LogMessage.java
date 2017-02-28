@@ -1,5 +1,6 @@
 package de.tum.moveii.ops.logbook.api.message;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import de.tum.moveii.ops.logbook.log.model.LogSeverity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +18,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class LogMessage {
-    @NotNull
     private Long logId;
     @NotNull
     private LogSeverity severity;
@@ -26,7 +26,9 @@ public class LogMessage {
     @NotNull
     private String message;
     @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdOn;
     @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime downloadedOn;
 }

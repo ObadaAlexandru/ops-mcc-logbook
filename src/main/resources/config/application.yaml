@@ -7,3 +7,4 @@ spring:
   profiles:
     # Default active profile (can be overridden by env vars or app params)
     active: dev
+

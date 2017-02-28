@@ -31,7 +31,7 @@ public class AlertProperties {
 
     private AlertState alertState = NEW;
     private Integer pageSize = 50;
-    private Integer pageIndex = 1;
+    private Integer pageIndex = 0;
 
     public Predicate buildPredicate() {
         QAlert alertQuery = QAlert.alert;
