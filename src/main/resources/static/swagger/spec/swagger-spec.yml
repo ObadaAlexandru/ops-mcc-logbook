@@ -299,7 +299,18 @@ paths:
             Location:
               description: Redirect to the target Alert resource
               type: string
-
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            type: string
+        500:
+          description: Service error
+          schema:
+            $ref: '#/definitions/Error'
 
   /alerts/{alertId}/notes:
     post:
