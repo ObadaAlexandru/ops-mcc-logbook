@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Alexandru Obada on 29/01/17.
  */
 @Entity
-@Table(name = "logbook.alerts", schema = "logbook")
+@Table(name = "alerts", schema = "logbook")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -50,7 +50,8 @@ public class Alert {
     private String createdBy;
 
     @ManyToMany
-    @JoinTable(name = "logbook.alert_log",
+    @JoinTable(name = "alert_log",
+            schema = "logbook",
             joinColumns = @JoinColumn(name = "alertId", referencedColumnName = "alertId"),
             inverseJoinColumns = @JoinColumn(name = "logId", referencedColumnName = "logId"))
     private List<Log> logMessages;

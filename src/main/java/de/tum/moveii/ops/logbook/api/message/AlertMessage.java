@@ -1,5 +1,6 @@
 package de.tum.moveii.ops.logbook.api.message;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import de.tum.moveii.ops.logbook.alert.model.AlertSeverity;
 import de.tum.moveii.ops.logbook.alert.model.AlertState;
@@ -29,9 +30,8 @@ public class AlertMessage {
     private String subsystem;
     @NotNull
     private String message;
-    @NotNull
     private AlertState state;
-    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdOn;
 
     private Long owner;

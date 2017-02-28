@@ -2,11 +2,13 @@ package de.tum.moveii.ops.logbook.alert.service;
 
 import com.querydsl.core.types.Predicate;
 import de.tum.moveii.ops.logbook.alert.model.Alert;
+import de.tum.moveii.ops.logbook.alert.model.AlertState;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +27,8 @@ public class AlertServiceImpl implements AlertService {
 
     @Override
     public Alert create(@NonNull Alert alarm) {
+        alarm.setCreatedOn(LocalDateTime.now());
+        alarm.setState(AlertState.NEW);
         return alertRepository.save(alarm);
     }
 
