@@ -271,6 +271,86 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
+    patch:
+      summary: Update
+      description: Alert partial update
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: alertId
+          in: path
+          type: string
+          description: Alert identifier
+          required: true
+        - name: modifications
+          in: body
+          description: |
+            A map with the key corresponding to the field to be modified
+            and the value to the new value to be applied
+          required: true
+          schema:
+            $ref: '#/definitions/Update'
+      responses:
+        303:
+          description: Alert
+          headers:
+            Location:
+              description: Redirect to the target Alert resource
+              type: string
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            type: string
+        500:
+          description: Service error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /alerts/{alertId}/notes:
+    post:
+      summary: Create note
+      description: Add a note to an alert
+      parameters:
+        - name: note
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Note'
+        - name: alertId
+          in: path
+          type: string
+          description: Alert identifier
+          required: true
+      tags:
+        - Alerts
+      produces:
+        - application/json
+      responses:
+        303:
+          description: Alert
+          headers:
+            Location:
+              description: Redirect to the target Alert resource
+              type: string
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            type: string
+        500:
+          description: Service error
+          schema:
+            $ref: '#/definitions/Error'
+
 definitions:
   LogMessage:
     type: object
@@ -368,6 +448,11 @@ definitions:
       createdOn:
         type: string
         format: date-time
+
+  Update:
+    type: object
+    additionalProperties:
+      type: string
 
   Error:
     type: object
