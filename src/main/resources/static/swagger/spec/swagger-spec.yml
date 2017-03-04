@@ -87,6 +87,12 @@ paths:
           default: 50
           description: |
             The results will be provided in chunks. This parameters represents the chunk size
+        - name: pageIndex
+          in: query
+          type: integer
+          required: false
+          default: 1
+          description: Page identifier
       tags:
         - Logs
       produces:
@@ -274,6 +280,8 @@ paths:
     patch:
       summary: Update
       description: Alert partial update
+      tags:
+        - Alerts
       consumes:
         - application/json
       produces:
@@ -284,11 +292,9 @@ paths:
           type: string
           description: Alert identifier
           required: true
-        - name: modifications
+        - name: newState
           in: body
-          description: |
-            A map with the key corresponding to the field to be modified
-            and the value to the new value to be applied
+          description: The new state
           required: true
           schema:
             $ref: '#/definitions/Update'
@@ -384,9 +390,9 @@ definitions:
       alertId:
         type: integer
         format: int64
-      message:
+      subsystem:
         type: string
-      owner:
+      executedBy:
         type: integer
         format: int64
       state:
@@ -395,6 +401,13 @@ definitions:
           - NEW
           - ACKNOWLEDGED
           - RESOLVED
+      severity:
+        type: string
+        enum:
+          - WARNING
+          - CRITICAL
+      message:
+        type: string
       createdOn:
         type: string
         format: date-time
@@ -402,18 +415,14 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Note'
-      severity:
-        type: string
-        enum:
-          - WARNING
-          - CRITICAL
-      subsystem:
-        type: string
       transitions:
         type: array
         items:
           $ref: '#/definitions/Transition'
-
+      assigneeHistory:
+        type: array
+        items:
+          $ref: '#/definitions/AssigneeHistoryEntry'
 
   Note:
     type: object
@@ -442,17 +451,42 @@ definitions:
           - NEW
           - ACKNOWLEDGED
           - RESOLVED
-      author:
+      executedBy:
         type: integer
         format: int64
       createdOn:
         type: string
         format: date-time
 
+  AssigneeHistoryEntry:
+    type: object
+    properties:
+      oldAssignee:
+        type: integer
+        format: int64
+      newAssignee:
+        type: integer
+        format: int64
+      executedBy:
+        type: integer
+        format: int64
+      createdOn:
+        type: string
+        format: date-time
+
+
   Update:
     type: object
-    additionalProperties:
-      type: string
+    properties:
+      newState:
+        type: string
+        enum:
+          - NEW
+          - ACKNOWLEDGED
+          - RESOLVED
+      newAssignee:
+        type: integer
+        format: int64
 
   Error:
     type: object

@@ -1,5 +1,6 @@
 package de.tum.moveii.ops.logbook.api.message;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,15 +12,14 @@ import java.time.LocalDateTime;
  */
 @Data
 @Builder
-public class OwnerHistoryMessage {
+public class AssigneeHistoryMessage {
     @NotNull
-    private Long ownerHistoryId;
+    private Long oldAssignee;
     @NotNull
-    private Long oldOwner;
+    private Long newAssignee;
     @NotNull
-    private Long newOwner;
+    private Long executedBy;
     @NotNull
-    private Long owner;
-    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdOn;
 }

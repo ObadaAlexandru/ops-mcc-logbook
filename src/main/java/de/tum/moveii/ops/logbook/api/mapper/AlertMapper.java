@@ -17,9 +17,8 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
     private LogMapper logMapper = new LogMapper();
     private NoteMapper noteMapper = new NoteMapper();
     private TransitionMapper transitionMapper = new TransitionMapper();
-    private OwnerHistoryMapper ownerHistoryMapper = new OwnerHistoryMapper();
+    private AssigneeHistoryMapper ownerHistoryMapper = new AssigneeHistoryMapper();
 
-    //TODO map Transition, Notes and OwnerHistory
     @Override
     public Alert toResource(@NotNull AlertMessage message) {
         return Alert.builder()
@@ -29,20 +28,16 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
                 .message(message.getMessage())
                 .state(message.getState())
                 .createdOn(message.getCreatedOn())
-                .ownerId(message.getOwner())
-                .createdBy(message.getCreatedBy())
-                .logMessages(Optional.ofNullable(message.getLogMessages())
-                        .map(logs -> logs.stream().map(logMapper::toResource).collect(Collectors.toList()))
-                        .orElse(Collections.emptyList()))
+                .assigneeId(message.getAssignee())
                 .notes(Optional.ofNullable(message.getNotes())
-                        .map(notes -> notes.stream().map(noteMapper::toResource).collect(Collectors.toList()))
-                        .orElse(Collections.emptyList()))
+                        .map(notes -> notes.stream().map(noteMapper::toResource).collect(Collectors.toSet()))
+                        .orElse(Collections.emptySet()))
                 .transitions(Optional.ofNullable(message.getTransitions())
-                        .map(transitions -> transitions.stream().map(transitionMapper::toResource).collect(Collectors.toList()))
-                        .orElse(Collections.emptyList()))
-                .ownerHistory(Optional.ofNullable(message.getOwnerHistory())
-                        .map(ownerHistory -> ownerHistory.stream().map(ownerHistoryMapper::toResource).collect(Collectors.toList()))
-                        .orElse(Collections.emptyList()))
+                        .map(transitions -> transitions.stream().map(transitionMapper::toResource).collect(Collectors.toSet()))
+                        .orElse(Collections.emptySet()))
+                .assigneeHistory(Optional.ofNullable(message.getAssigneeHistory())
+                        .map(ownerHistory -> ownerHistory.stream().map(ownerHistoryMapper::toResource).collect(Collectors.toSet()))
+                        .orElse(Collections.emptySet()))
                 .build();
     }
 
@@ -55,18 +50,14 @@ public class AlertMapper implements ResourceMapper<AlertMessage, Alert> {
                 .message(resource.getMessage())
                 .state(resource.getState())
                 .createdOn(resource.getCreatedOn())
-                .owner(resource.getOwnerId())
-                .createdBy(resource.getCreatedBy())
-                .logMessages(Optional.ofNullable(resource.getLogMessages())
-                        .map(logs -> logs.stream().map(logMapper::toMessage).collect(Collectors.toList()))
-                        .orElse(Collections.emptyList()))
+                .assignee(resource.getAssigneeId())
                 .notes(Optional.ofNullable(resource.getNotes())
                         .map(notes -> notes.stream().map(noteMapper::toMessage).collect(Collectors.toList()))
                         .orElse(Collections.emptyList()))
                 .transitions(Optional.ofNullable(resource.getTransitions())
                         .map(transitions -> transitions.stream().map(transitionMapper::toMessage).collect(Collectors.toList()))
                         .orElse(Collections.emptyList()))
-                .ownerHistory(Optional.ofNullable(resource.getOwnerHistory())
+                .assigneeHistory(Optional.ofNullable(resource.getAssigneeHistory())
                         .map(ownerHistory -> ownerHistory.stream().map(ownerHistoryMapper::toMessage).collect(Collectors.toList()))
                         .orElse(Collections.emptyList()))
                 .build();

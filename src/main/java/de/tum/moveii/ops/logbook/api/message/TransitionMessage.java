@@ -1,5 +1,6 @@
 package de.tum.moveii.ops.logbook.api.message;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import de.tum.moveii.ops.logbook.alert.model.AlertState;
 import lombok.Builder;
 import lombok.Data;
@@ -14,13 +15,12 @@ import java.time.LocalDateTime;
 @Builder
 public class TransitionMessage {
     @NotNull
-    private Long transitionId;
-    @NotNull
-    private Long owner;
+    private Long executedBy;
     @NotNull
     private AlertState startState;
     @NotNull
     private AlertState endState;
     @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdOn;
 }

@@ -15,18 +15,15 @@ class TransitionMapperTest extends Specification {
 
     def 'Map transition to transitionMessage'() {
         given:
-        def transitionId = 1L
         def transition = Transition.builder()
-                .transitionId(transitionId)
-                .ownerId(2L)
+                .executedBy(2L)
                 .startState(AlertState.NEW)
                 .endState(AlertState.ACKNOWLEDGED)
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
                 .build()
 
         def transitionMessage = TransitionMessage.builder()
-                .transitionId(transitionId)
-                .owner(2L)
+                .executedBy(2L)
                 .startState(AlertState.NEW)
                 .endState(AlertState.ACKNOWLEDGED)
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
@@ -39,18 +36,15 @@ class TransitionMapperTest extends Specification {
 
     def 'Map transitionMessage to transition'() {
         given:
-        def transitionId = 1L
         def transition = Transition.builder()
-                .transitionId(transitionId)
-                .ownerId(2L)
+                .executedBy(2L)
                 .startState(AlertState.NEW)
                 .endState(AlertState.ACKNOWLEDGED)
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
                 .build()
 
         def transitionMessage = TransitionMessage.builder()
-                .transitionId(transitionId)
-                .owner(2L)
+                .executedBy(2L)
                 .startState(AlertState.NEW)
                 .endState(AlertState.ACKNOWLEDGED)
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))

@@ -1,7 +1,5 @@
 package de.tum.moveii.ops.logbook.api.endpoint;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import de.tum.moveii.ops.logbook.alert.model.AlertSeverity;

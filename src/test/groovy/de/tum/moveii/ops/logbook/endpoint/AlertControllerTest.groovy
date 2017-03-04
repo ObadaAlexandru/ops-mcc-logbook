@@ -6,6 +6,7 @@ import de.tum.moveii.ops.logbook.alert.service.AlertService
 import de.tum.moveii.ops.logbook.api.endpoint.AlertController
 import de.tum.moveii.ops.logbook.api.endpoint.AlertProperties
 import de.tum.moveii.ops.logbook.api.mapper.AlertMapper
+import de.tum.moveii.ops.logbook.api.mapper.NoteMapper
 import de.tum.moveii.ops.logbook.api.message.AlertMessage
 import de.tum.moveii.ops.logbook.error.AlertNotFoundException
 import spock.lang.Specification
@@ -17,8 +18,9 @@ class AlertControllerTest extends Specification {
 
     def alertService = Mock(AlertService)
     def alertMapper = Mock(AlertMapper)
+    def noteMapper = Mock(NoteMapper)
 
-    def alertController = new AlertController(alertService, alertMapper)
+    def alertController = new AlertController(alertService, alertMapper, noteMapper)
 
     def 'Create alert'() {
         given:
@@ -67,6 +69,5 @@ class AlertControllerTest extends Specification {
         alerts                     | _
         [new Alert(), new Alert()] | _
         []                         | _
-
     }
 }
