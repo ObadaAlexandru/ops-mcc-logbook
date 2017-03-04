@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * Created by csoare on 2/3/17.
  */
 @Entity
-@Table(name = "logmessages", schema = "logbook")
+@Table(name = "LOG_MESSAGES", schema = "LOGBOOK")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -21,25 +21,25 @@ public class Log {
     @Id
     @SequenceGenerator(name = "logmessages_logId_seq",
             sequenceName = "logmessages_logId_seq",
-            schema = "logbook",
+            schema = "LOGBOOK",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "logId", nullable = false, updatable = false)
+    @Column(name = "LOG_ID", nullable = false, updatable = false)
     private Long logId;
 
-    @Column(name = "severity", nullable = false)
+    @Column(name = "SEVERITY", nullable = false)
     @Convert(converter = LogSeverityConverter.class)
     private LogSeverity severity;
 
-    @Column(name = "subsystem", nullable = false)
+    @Column(name = "SUBSYSTEM", nullable = false)
     private String subsystem;
 
-    @Column(name = "message", nullable = false)
+    @Column(name = "MESSAGE", nullable = false)
     private String message;
 
-    @Column(name = "createdOn", nullable = false)
+    @Column(name = "CREATED_ON", nullable = false)
     private LocalDateTime createdOn;
 
-    @Column(name = "downloadedOn", nullable = false)
+    @Column(name = "DOWNLOADED_ON", nullable = false)
     private LocalDateTime downloadedOn;
 }

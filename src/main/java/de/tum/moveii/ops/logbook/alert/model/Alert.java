@@ -1,17 +1,16 @@
 package de.tum.moveii.ops.logbook.alert.model;
 
-import de.tum.moveii.ops.logbook.log.model.Log;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Alexandru Obada on 29/01/17.
  */
 @Entity
-@Table(name = "alerts", schema = "logbook")
+@Table(name = "ALERTS", schema = "LOGBOOK")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -20,60 +19,53 @@ public class Alert {
     @Id
     @SequenceGenerator(name = "alerts_alertId_seq",
             sequenceName = "alerts_alertId_seq",
-            schema = "logbook",
+            schema = "LOGBOOK",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "alertId", nullable = false, updatable = false)
+    @Column(name = "ALERT_ID", nullable = false, updatable = false)
     private Long alertId;
 
-    @Column(name = "severity", nullable = false)
+    @Column(name = "SEVERITY", nullable = false)
     @Convert(converter = AlertSeverityConverter.class)
     private AlertSeverity severity;
 
-    @Column(name = "subsystem", nullable = false)
+    @Column(name = "SUBSYSTEM", nullable = false)
     private String subsystem;
 
-    @Column(name = "message", nullable = false)
+    @Column(name = "MESSAGE", nullable = false)
     private String message;
 
-    @Column(name = "state", nullable = false)
+    @Column(name = "STATE", nullable = false)
     @Convert(converter = AlertStateConverter.class)
     private AlertState state;
 
-    @Column(name = "createdOn", nullable = false)
+    @Column(name = "CREATED_ON", nullable = false)
     private LocalDateTime createdOn;
 
-    @Column(name = "ownerId")
-    private Long ownerId;
+    @Column(name = "ASSIGNEE_ID")
+    private Long assigneeId;
 
-    @Column(name = "createdBy")
-    private String createdBy;
+    @OneToMany(mappedBy = "alert", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Note> notes;
 
-    @ManyToMany
-    @JoinTable(name = "alert_log",
-            schema = "logbook",
-            joinColumns = @JoinColumn(name = "alertId", referencedColumnName = "alertId"),
-            inverseJoinColumns = @JoinColumn(name = "logId", referencedColumnName = "logId"))
-    private List<Log> logMessages;
+    @OneToMany(mappedBy = "alert", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Transition> transitions;
 
-    @OneToMany(mappedBy = "alert", fetch = FetchType.LAZY)
-    private List<Note> notes;
-
-    @OneToMany(mappedBy = "alert", fetch = FetchType.LAZY)
-    private List<Transition> transitions;
-
-    @OneToMany(mappedBy = "alert", fetch = FetchType.LAZY)
-    private List<OwnerHistory> ownerHistory;
+    @OneToMany(mappedBy = "alert", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<AssigneeHistory> assigneeHistory;
 
     public void addNote(@NonNull Note note) {
+        note.setAlert(this);
         notes.add(note);
     }
 
     public void addTransition(@NonNull Transition transition) {
+        transition.setAlert(this);
         transitions.add(transition);
     }
 
-    public void changeOwner(@NonNull OwnerHistory newOwner) {
-        ownerHistory.add(newOwner);
+    public void addAssigneeHistoryEntry(@NonNull AssigneeHistory newOwner) {
+        newOwner.setAlert(this);
+        assigneeHistory.add(newOwner);
     }
 }

@@ -1,7 +1,9 @@
 package de.tum.moveii.ops.logbook.api.endpoint;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import de.tum.moveii.ops.logbook.api.message.ErrorMessage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -33,9 +35,16 @@ public class ExceptionHandlerController {
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(BindException.class)
     public ErrorMessage handleBindingException(BindException bindException) {
-        log.warn("Malformed message has been received: {}", bindException);
+        log.warn("Invalid message has been received: {}", bindException);
         String errorMessage = getErrorMessage(bindException.getBindingResult());
         return new ErrorMessage(errorMessage);
+    }
+
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ErrorMessage malformedMessage(JsonParseException parseException) {
+        log.warn("Malformed message has been received: {}", parseException);
+        return new ErrorMessage("Malformed payload has been received");
     }
 
     @ResponseStatus(METHOD_NOT_ALLOWED)
@@ -48,7 +57,7 @@ public class ExceptionHandlerController {
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ErrorMessage handleServerSideError(Exception exception) {
-        log.error("Unexpected error: {}", exception);
+        log.error("Unexpected error", exception);
         return new ErrorMessage("server side error");
     }
 

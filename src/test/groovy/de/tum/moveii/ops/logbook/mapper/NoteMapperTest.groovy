@@ -14,17 +14,14 @@ class NoteMapperTest extends Specification {
 
     def 'Map note to noteMessage'() {
         given:
-        def noteId = 1L
         def note = Note.builder()
-                .noteId(noteId)
                 .ownerId(2L)
                 .message("test_msg")
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
                 .build()
 
         def noteMessage = NoteMessage.builder()
-                .noteId(noteId)
-                .owner(2L)
+                .author(2L)
                 .message("test_msg")
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
                 .build()
@@ -36,17 +33,14 @@ class NoteMapperTest extends Specification {
 
     def 'Map noteMessage to note'() {
         given:
-        def noteId = 1L
         def note = Note.builder()
-                .noteId(noteId)
                 .ownerId(2L)
                 .message("test_msg")
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
                 .build()
 
         def noteMessage = NoteMessage.builder()
-                .noteId(noteId)
-                .owner(2L)
+                .author(2L)
                 .message("test_msg")
                 .createdOn(LocalDateTime.of(2016, 2, 19, 10, 35, 30))
                 .build()

@@ -24,18 +24,16 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 @Builder
 public class AlertMessage {
     private Long alertId;
-    @NotNull
-    private AlertSeverity severity;
+    private Long assignee;
     @NotNull
     private String subsystem;
+    @NotNull
+    private AlertSeverity severity;
     @NotNull
     private String message;
     private AlertState state;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdOn;
-
-    private Long owner;
-    private String createdBy;
 
     @JsonInclude(NON_EMPTY)
     private List<LogMessage> logMessages;
@@ -44,5 +42,5 @@ public class AlertMessage {
     @JsonInclude(NON_EMPTY)
     private List<TransitionMessage> transitions;
     @JsonInclude(NON_EMPTY)
-    private List<OwnerHistoryMessage> ownerHistory;
+    private List<AssigneeHistoryMessage> assigneeHistory;
 }

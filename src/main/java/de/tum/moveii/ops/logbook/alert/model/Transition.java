@@ -1,7 +1,6 @@
 package de.tum.moveii.ops.logbook.alert.model;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,34 +9,37 @@ import java.time.LocalDateTime;
  * Created by Constantin Costescu on 07-Feb-17.
  */
 @Entity
-@Table(name = "transitions", schema = "logbook")
+@Table(name = "TRANSITIONS", schema = "LOGBOOK")
 @Data
+@EqualsAndHashCode(of = "transitionId")
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Transition {
     @Id
     @SequenceGenerator(name = "transitions_transitionId_seq",
             sequenceName = "transitions_transitionId_seq",
-            schema = "logbook",
+            schema = "LOGBOOK",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "transitionId", nullable = false, updatable = false)
+    @Column(name = "TRANSITION_ID", nullable = false, updatable = false)
     private Long transitionId;
 
-    @Column(name = "ownerId", nullable = false)
-    private Long ownerId;
+    @Column(name = "EXECUTED_BY", nullable = false)
+    private Long executedBy;
 
-    @Column(name = "startState", nullable = false)
+    @Column(name = "START_STATE", nullable = false)
     @Convert(converter = AlertStateConverter.class)
     private AlertState startState;
 
-    @Column(name = "endState", nullable = false)
+    @Column(name = "END_STATE", nullable = false)
     @Convert(converter = AlertStateConverter.class)
     private AlertState endState;
 
-    @Column(name = "createdOn", nullable = false)
+    @Column(name = "CREATED_ON", nullable = false)
     private LocalDateTime createdOn;
 
     @ManyToOne
-    @JoinColumn(name = "alertId")
+    @JoinColumn(name = "ALERT_ID")
     private Alert alert;
 }

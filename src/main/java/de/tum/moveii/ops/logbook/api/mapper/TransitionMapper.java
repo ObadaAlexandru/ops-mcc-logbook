@@ -14,10 +14,9 @@ public class TransitionMapper implements ResourceMapper<TransitionMessage, Trans
     @Override
     public Transition toResource(@NotNull TransitionMessage message) {
         return Transition.builder()
-                .transitionId(message.getTransitionId())
                 .startState(message.getStartState())
                 .endState(message.getEndState())
-                .ownerId(message.getOwner())
+                .executedBy(message.getExecutedBy())
                 .createdOn(message.getCreatedOn())
                 .build();
     }
@@ -25,10 +24,9 @@ public class TransitionMapper implements ResourceMapper<TransitionMessage, Trans
     @Override
     public TransitionMessage toMessage(@NotNull Transition resource) {
         return TransitionMessage.builder()
-                .transitionId(resource.getTransitionId())
                 .startState(resource.getStartState())
                 .endState(resource.getEndState())
-                .owner(resource.getOwnerId())
+                .executedBy(resource.getExecutedBy())
                 .createdOn(resource.getCreatedOn())
                 .build();
     }

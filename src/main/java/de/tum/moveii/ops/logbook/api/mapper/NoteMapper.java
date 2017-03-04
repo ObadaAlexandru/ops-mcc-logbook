@@ -14,9 +14,8 @@ public class NoteMapper implements ResourceMapper<NoteMessage, Note> {
     @Override
     public Note toResource(@NotNull NoteMessage message) {
         return Note.builder()
-                .noteId(message.getNoteId())
                 .message(message.getMessage())
-                .ownerId(message.getOwner())
+                .ownerId(message.getAuthor())
                 .createdOn(message.getCreatedOn())
                 .build();
     }
@@ -24,9 +23,8 @@ public class NoteMapper implements ResourceMapper<NoteMessage, Note> {
     @Override
     public NoteMessage toMessage(@NotNull Note resource) {
         return NoteMessage.builder()
-                .noteId(resource.getNoteId())
                 .message(resource.getMessage())
-                .owner(resource.getOwnerId())
+                .author(resource.getOwnerId())
                 .createdOn(resource.getCreatedOn())
                 .build();
     }
