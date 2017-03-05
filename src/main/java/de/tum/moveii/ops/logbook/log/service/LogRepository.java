@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Created by Alexandru Obada on 20/02/17.
  */
-interface LogRepository extends CrudRepository<Log, Long>, QueryDslPredicateExecutor<Log> {
+public interface LogRepository extends CrudRepository<Log, Long>, QueryDslPredicateExecutor<Log> {
 }
