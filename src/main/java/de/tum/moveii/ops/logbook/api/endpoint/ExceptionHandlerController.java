@@ -1,6 +1,5 @@
 package de.tum.moveii.ops.logbook.api.endpoint;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import de.tum.moveii.ops.logbook.api.message.ErrorMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -42,8 +41,8 @@ public class ExceptionHandlerController {
 
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ErrorMessage malformedMessage(JsonParseException parseException) {
-        log.warn("Malformed message has been received: {}", parseException);
+    public ErrorMessage malformedMessage(HttpMessageNotReadableException exception) {
+        log.warn("Malformed message has been received: {}", exception);
         return new ErrorMessage("Malformed payload has been received");
     }
 

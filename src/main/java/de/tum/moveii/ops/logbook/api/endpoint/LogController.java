@@ -3,6 +3,7 @@ package de.tum.moveii.ops.logbook.api.endpoint;
 import de.tum.moveii.ops.logbook.api.mapper.LogMapper;
 import de.tum.moveii.ops.logbook.api.message.ErrorMessage;
 import de.tum.moveii.ops.logbook.api.message.LogMessage;
+import de.tum.moveii.ops.logbook.error.InvalidParameterException;
 import de.tum.moveii.ops.logbook.error.LogNotFoundException;
 import de.tum.moveii.ops.logbook.log.model.Log;
 import de.tum.moveii.ops.logbook.log.service.LogService;
@@ -51,7 +52,7 @@ public class LogController {
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
-    public List<LogMessage> getLogs(LogProperties logProperties) {
+    public List<LogMessage> getLogs(@Valid LogProperties logProperties) {
         List<Log> logs = logService.getLogs(logProperties.buildPredicate(), new PageRequest(logProperties.getPageIndex(), logProperties.getPageSize()));
         return logs.stream()
                 .map(logMapper::toMessage)
@@ -63,5 +64,12 @@ public class LogController {
     public ErrorMessage handleNotFoundException(LogNotFoundException logNotFoundException) {
         log.info(logNotFoundException.toString());
         return new ErrorMessage(logNotFoundException.toString());
+    }
+
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(InvalidParameterException.class)
+    public ErrorMessage handleInvalidParameters(InvalidParameterException exception) {
+        log.info(exception.toString());
+        return new ErrorMessage(exception.toString());
     }
 }
