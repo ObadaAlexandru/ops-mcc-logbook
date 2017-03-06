@@ -20,7 +20,7 @@ public class NoteMessage {
     private Long author;
     @NotNull
     private String message;
-    @NotNull
+
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdOn;
 }

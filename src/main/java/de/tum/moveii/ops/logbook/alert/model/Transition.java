@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @Builder
 public class Transition {
     @Id
-    @SequenceGenerator(name = "transitions_transitionId_seq",
-            sequenceName = "transitions_transitionId_seq",
+    @SequenceGenerator(name = "transitions_transition_id_seq",
+            sequenceName = "transitions_transition_id_seq",
             schema = "LOGBOOK",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

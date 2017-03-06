@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @Builder
 public class Note {
     @Id
-    @SequenceGenerator(name = "notes_noteId_seq",
-            sequenceName = "notes_noteId_seq",
+    @SequenceGenerator(name = "notes_note_id_seq",
+            sequenceName = "notes_note_id_seq",
             schema = "LOGBOOK",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

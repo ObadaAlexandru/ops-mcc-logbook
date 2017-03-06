@@ -13,6 +13,8 @@ import java.util.Optional;
  */
 public interface LogService {
     Log create(@NonNull Log log);
+
     Optional<Log> getLog(@NonNull Long logId);
+
     List<Log> getLogs(@NonNull Predicate predicate, @NonNull Pageable pageable);
 }

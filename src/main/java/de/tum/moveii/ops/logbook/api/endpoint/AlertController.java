@@ -8,10 +8,7 @@ import de.tum.moveii.ops.logbook.api.message.AlertMessage;
 import de.tum.moveii.ops.logbook.api.message.AlertUpdateMessage;
 import de.tum.moveii.ops.logbook.api.message.ErrorMessage;
 import de.tum.moveii.ops.logbook.api.message.NoteMessage;
-import de.tum.moveii.ops.logbook.error.AlertNotFoundException;
-import de.tum.moveii.ops.logbook.error.BaseException;
-import de.tum.moveii.ops.logbook.error.InvalidAlertUpdateException;
-import de.tum.moveii.ops.logbook.error.UserNotFoundException;
+import de.tum.moveii.ops.logbook.error.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -92,20 +89,20 @@ public class AlertController {
     }
 
     @ResponseStatus(BAD_REQUEST)
-    @ExceptionHandler({InvalidAlertUpdateException.class, UserNotFoundException.class})
+    @ExceptionHandler({InvalidAlertUpdateException.class, UserNotFoundException.class, InvalidParameterException.class})
     public ErrorMessage handleInvalidUpdate(BaseException exception) {
         log.warn(exception.toString());
         return new ErrorMessage(exception.toString());
     }
 
     private void update(Long alertId, AlertUpdateMessage alertUpdateMessage) {
-        if(!alertUpdateMessage.isValid()) {
+        if (!alertUpdateMessage.isValid()) {
             throw new InvalidAlertUpdateException();
         }
-        if(null != alertUpdateMessage.getNewAssignee()) {
+        if (null != alertUpdateMessage.getNewAssignee()) {
             alertService.updateAssignee(alertId, alertUpdateMessage.getNewAssignee());
         }
-        if(null != alertUpdateMessage.getNewState()) {
+        if (null != alertUpdateMessage.getNewState()) {
             alertService.updateState(alertId, alertUpdateMessage.getNewState());
         }
     }

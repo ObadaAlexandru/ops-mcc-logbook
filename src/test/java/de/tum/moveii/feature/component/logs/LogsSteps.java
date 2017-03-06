@@ -1,12 +1,8 @@
 package de.tum.moveii.feature.component.logs;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -14,19 +10,17 @@ import okhttp3.*;
 import org.springframework.boot.context.embedded.LocalServerPort;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
-import static org.assertj.core.api.Assertions.*;
 
 /**
  * Created by Alexandru Obada on 05/03/17.
  */
 public class LogsSteps {
 
+    private String address;
     private String endpoint;
     private String payload;
     private Response response;
@@ -34,9 +28,15 @@ public class LogsSteps {
     @LocalServerPort
     private Integer serverPort;
 
+
+    @Given("^the address \"([^\"]*)\"$")
+    public void theAddress(String address) {
+        this.address = address;
+    }
+
     @Given("^the endpoint \"([^\"]*)\"$")
     public void theEndpoint(String endpoint) {
-        this.endpoint = String.format("http://localhost:%d%s", serverPort, endpoint);
+        this.endpoint = String.format("http://localhost:%d%s%s", serverPort, address, endpoint);
     }
 
     @Given("^the following payload:$")
@@ -77,6 +77,9 @@ public class LogsSteps {
     @Then("^the response contains (\\d+) items$")
     public void theResponseContainsItems(int expectedLogCount) throws IOException {
         String responseBody = response.body().string();
+
+        System.out.println(responseBody);
+
         JsonArray root = new JsonParser().parse(responseBody).getAsJsonArray();
         assertThat(root.size()).isEqualTo(expectedLogCount);
     }

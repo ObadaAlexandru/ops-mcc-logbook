@@ -20,7 +20,7 @@ public class TransitionMessage {
     private AlertState startState;
     @NotNull
     private AlertState endState;
-    @NotNull
+
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdOn;
 }

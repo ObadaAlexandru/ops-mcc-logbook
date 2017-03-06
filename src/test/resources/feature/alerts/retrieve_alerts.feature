@@ -1,35 +1,38 @@
 @component-test
-Feature: Get individual logs and search by property
+Feature: Get individual alerts and search by property
 
-  Scenario: Get log by id
+  Scenario: Get alert by id
     Given the address "/logbook"
-    And the endpoint "/logs/5"
+    And the endpoint "/alerts/2"
     When a get request is performed
     Then the response code is 200
     And the body contains the following fields:
-      | fieldName    | value               |
-      | logId        | 5                   |
-      | message      | test message6       |
-      | severity     | WARNING             |
-      | subsystem    | COM                 |
-      | createdOn    | 2015-05-05T01:30:00 |
-      | downloadedOn | 2015-05-05T01:30:00 |
+      | fieldName | value               |
+      | alertId   | 2                   |
+      | assignee  | 2                   |
+      | subsystem | THM                 |
+      | severity  | CRITICAL            |
+      | message   | test message2       |
+      | state     | ACKNOWLEDGED        |
+      | createdOn | 2015-01-05T00:10:00 |
 
-  Scenario Outline: Get logs by property
+  Scenario Outline: Get alerts by property
     Given the address "/logbook"
-    And the endpoint "/logs?<property>=<value>"
+    And the endpoint "/alerts?<property>=<value>"
     When a get request is performed
     Then the response code is 200
     And the response contains <items> items
     Examples:
-      | property    | value   | items |
-      | severity    | WARNING | 2     |
-      | subsystemId | COM     | 5     |
+      | property    | value        | items |
+      | severity    | CRITICAL     | 2     |
+      | subsystemId | EPS          | 1     |
+      | state       | ACKNOWLEDGED | 3     |
+      | assigneeId  | 2            | 2     |
 
 
-  Scenario Outline: Get logs by date
+  Scenario Outline: Get alerts by date
     Given the address "/logbook"
-    And the endpoint "/logs?since=<since>&until=<until>"
+    And the endpoint "/alerts?since=<since>&until=<until>"
     When a get request is performed
     Then the response code is 200
     And the response contains <items> items
@@ -42,7 +45,7 @@ Feature: Get individual logs and search by property
 
   Scenario Outline: Invalid date parameters
     Given the address "/logbook"
-    And the endpoint "/logs?since=<since>&until=<until>"
+    And the endpoint "/alerts?since=<since>&until=<until>"
     When a get request is performed
     Then the response code is 400
     Examples:

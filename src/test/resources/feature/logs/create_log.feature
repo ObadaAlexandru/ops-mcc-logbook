@@ -2,7 +2,8 @@
 Feature: Create logs
 
   Scenario: Create valid log
-    Given the endpoint "/logbook/logs"
+    Given the address "/logbook"
+    And the endpoint "/logs"
     And the following payload:
     """
     {
@@ -24,7 +25,8 @@ Feature: Create logs
       | downloadedOn | 2017-03-05T15:26:47         |
 
   Scenario: Create log message with missing severity field
-    Given the endpoint "/logbook/logs"
+    Given the address "/logbook"
+    Given the endpoint "/logs"
     And the following payload:
     """
     {
@@ -41,9 +43,8 @@ Feature: Create logs
       | message   | severity may not be null |
 
   Scenario: Invalid date format
-
-  Scenario: Create log message with missing severity field
-    Given the endpoint "/logbook/logs"
+    Given the address "/logbook"
+    And the endpoint "/logs"
     And the following payload:
     """
     {

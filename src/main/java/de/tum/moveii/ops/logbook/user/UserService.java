@@ -7,6 +7,8 @@ import lombok.NonNull;
  */
 public interface UserService {
     Long getCurrentUser();
+
     boolean exists(@NonNull Long userId);
+
     Long getStandByUser();
 }

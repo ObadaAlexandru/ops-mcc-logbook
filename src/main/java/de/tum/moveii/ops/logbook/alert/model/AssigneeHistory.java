@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @Builder
 public class AssigneeHistory {
     @Id
-    @SequenceGenerator(name = "ownerHistory_ownerHistoryId_seq",
-            sequenceName = "ownerHistory_ownerHistoryId_seq",
+    @SequenceGenerator(name = "assignee_history_assignee_history_id_seq",
+            sequenceName = "assignee_history_assignee_history_id_seq",
             schema = "LOGBOOK",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

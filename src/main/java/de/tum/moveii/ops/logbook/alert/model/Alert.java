@@ -17,8 +17,8 @@ import java.util.Set;
 @Builder
 public class Alert {
     @Id
-    @SequenceGenerator(name = "alerts_alertId_seq",
-            sequenceName = "alerts_alertId_seq",
+    @SequenceGenerator(name = "alerts_alert_id_seq",
+            sequenceName = "alerts_alert_id_seq",
             schema = "LOGBOOK",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -28,9 +28,9 @@ public class Alert {
     @Column(name = "SEVERITY", nullable = false)
     @Convert(converter = AlertSeverityConverter.class)
     private AlertSeverity severity;
-
     @Column(name = "SUBSYSTEM", nullable = false)
     private String subsystem;
+
 
     @Column(name = "MESSAGE", nullable = false)
     private String message;
