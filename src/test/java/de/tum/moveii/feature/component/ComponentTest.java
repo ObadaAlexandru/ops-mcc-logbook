@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(strict = true, tags = "@component-test",
         features = "classpath:feature",
-        plugin = {"pretty"},
+        plugin = {"pretty", "html:target/reports"},
         glue = {"classpath:de.tum.moveii.feature.component", "classpath:de.tum.moveii.feature.common"})
 public class ComponentTest {
 }
