@@ -14,12 +14,6 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(classes = Application.class, webEnvironment = RANDOM_PORT)
 public class CommonSteps {
 
-//    @Autowired
-//    private LogRepository logRepository;
-//
-//    @Autowired
-//    private AlertRepository alertRepository;
-
     @Before
     public void setUp() {
     }

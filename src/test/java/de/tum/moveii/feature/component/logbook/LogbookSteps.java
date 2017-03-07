@@ -1,4 +1,4 @@
-package de.tum.moveii.feature.component.logs;
+package de.tum.moveii.feature.component.logbook;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -18,7 +18,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 /**
  * Created by Alexandru Obada on 05/03/17.
  */
-public class LogsSteps {
+public class LogbookSteps {
 
     private String address;
     private String endpoint;
@@ -59,6 +59,14 @@ public class LogsSteps {
         response = client.newCall(request).execute();
     }
 
+    @When("^a patch request is performed$")
+    public void aPatchRequestIsPerformed() throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = RequestBody.create(MediaType.parse(APPLICATION_JSON_UTF8_VALUE), payload);
+        Request request = new Request.Builder().patch(body).url(endpoint).build();
+        response = client.newCall(request).execute();
+    }
+
     @Then("^the response code is (\\d+)$")
     public void theResponseCodeIs(int expectedResponseCode) {
         int actualResponseCode = response.code();
@@ -77,10 +85,18 @@ public class LogsSteps {
     @Then("^the response contains (\\d+) items$")
     public void theResponseContainsItems(int expectedLogCount) throws IOException {
         String responseBody = response.body().string();
-
-        System.out.println(responseBody);
-
         JsonArray root = new JsonParser().parse(responseBody).getAsJsonArray();
         assertThat(root.size()).isEqualTo(expectedLogCount);
+    }
+
+    @Then("^the response contains the following:$")
+    public void theResponseContainsTheFollowing(List<FieldContainer> expectedValues) throws IOException {
+        String responseBody = response.body().string();
+        JsonObject root = new JsonParser().parse(responseBody).getAsJsonObject();
+
+        expectedValues.forEach(expectedValue -> {
+            int count = root.get(expectedValue.getFieldName()).getAsJsonArray().size();
+            assertThat(Integer.toString(count)).isEqualTo(expectedValue.getValue());
+        });
     }
 }

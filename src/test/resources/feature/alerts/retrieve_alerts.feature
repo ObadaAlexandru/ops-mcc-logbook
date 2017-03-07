@@ -14,7 +14,7 @@ Feature: Get individual alerts and search by property
       | severity  | CRITICAL            |
       | message   | test message2       |
       | state     | ACKNOWLEDGED        |
-      | createdOn | 2015-01-05T00:10:00 |
+      | createdOn | 2015-03-05T00:10:00 |
 
   Scenario Outline: Get alerts by property
     Given the address "/logbook"
