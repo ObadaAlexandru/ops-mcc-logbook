@@ -19,7 +19,7 @@ public class AssigneeHistoryMessage {
     private Long newAssignee;
     @NotNull
     private Long executedBy;
-    @NotNull
+
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdOn;
 }

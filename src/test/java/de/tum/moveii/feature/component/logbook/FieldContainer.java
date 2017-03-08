@@ -1,4 +1,4 @@
-package de.tum.moveii.feature.component.logs;
+package de.tum.moveii.feature.component.logbook;
 
 import lombok.Data;
 

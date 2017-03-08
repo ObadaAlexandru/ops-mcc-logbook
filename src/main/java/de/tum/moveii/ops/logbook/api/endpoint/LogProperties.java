@@ -35,10 +35,10 @@ public class LogProperties {
                 .filter(date -> date.isAfter(LocalDateTime.now()))
                 .map(date -> String.format("Provided date <%s> is a future date", date))
                 .findFirst();
-        if(errorMessage.isPresent()) {
+        if (errorMessage.isPresent()) {
             throw new InvalidParameterException(errorMessage.get());
         }
-        if(until.isBefore(since)) {
+        if (until.isBefore(since)) {
             throw new InvalidParameterException(String
                     .format("Parameter since[%s] cannot be ahead of until[%s]", since, until));
         }

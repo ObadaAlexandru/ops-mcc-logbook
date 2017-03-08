@@ -68,7 +68,7 @@ public class AlertServiceImpl implements AlertService {
         if (null == alert) {
             throw new AlertNotFoundException(String.format("Alert <%s> not found", alertId));
         }
-        if(newAssignee.equals(alert.getAssigneeId())) {
+        if (newAssignee.equals(alert.getAssigneeId())) {
             throw new InvalidAlertUpdateException(String.format("Alert already assigned to user<%s>", newAssignee));
         }
         if (userService.exists(newAssignee)) {

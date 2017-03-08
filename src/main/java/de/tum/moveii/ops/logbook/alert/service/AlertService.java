@@ -15,9 +15,14 @@ import java.util.Optional;
  */
 public interface AlertService {
     Alert create(@NonNull Alert alert);
+
     void updateState(@NonNull Long alertId, @NonNull AlertState newState);
+
     void updateAssignee(@NonNull Long alertId, @NonNull Long newAssignee);
+
     Alert addNote(@NonNull Long alertId, @NonNull Note note);
+
     Optional<Alert> getAlert(@NonNull Long alertId);
+
     List<Alert> getAlerts(@NonNull Predicate predicate, @NonNull Pageable pageable);
 }

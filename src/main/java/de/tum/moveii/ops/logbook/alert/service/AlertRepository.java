@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Created by Alexandru Obada on 20/02/17.
  */
-interface AlertRepository extends CrudRepository<Alert, Long>, QueryDslPredicateExecutor<Alert> {
+public interface AlertRepository extends CrudRepository<Alert, Long>, QueryDslPredicateExecutor<Alert> {
 }

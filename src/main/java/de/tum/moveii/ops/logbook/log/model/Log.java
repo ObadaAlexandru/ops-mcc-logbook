@@ -19,8 +19,8 @@ import java.time.LocalDateTime;
 @Builder
 public class Log {
     @Id
-    @SequenceGenerator(name = "logmessages_logId_seq",
-            sequenceName = "logmessages_logId_seq",
+    @SequenceGenerator(name = "log_messages_log_id_seq",
+            sequenceName = "log_messages_log_id_seq",
             schema = "LOGBOOK",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

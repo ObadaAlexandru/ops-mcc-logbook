@@ -21,6 +21,7 @@ public class SwaggerController {
     /**
      * Redirects to the swagger-ui
      * References the swagger spec in the static content
+     *
      * @return swagger index
      */
     @RequestMapping(method = RequestMethod.GET)
