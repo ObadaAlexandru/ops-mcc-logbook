@@ -392,7 +392,7 @@ definitions:
         format: int64
       subsystem:
         type: string
-      executedBy:
+      assignee:
         type: integer
         format: int64
       state:
